@@ -20,13 +20,14 @@ var index = new AzureAISearchToolIndex
 {
     ProjectConnectionId = searchConnectionId,
     IndexName = indexName,
+    QueryType = AzureAISearchQueryType.VectorSemanticHybrid,
     TopK = 5,
 };
 var search = new AzureAISearchTool(new AzureAISearchToolOptions(new[] { index }));
 
 DeclarativeAgentDefinition definition = new(model: modelDeployment)
 {
-    Instructions = "Answer questions using only the provided Azure AI Search index.",
+    Instructions = "Answer questions about hotels using only the provided Azure AI Search index. Cite hotel names.",
 };
 definition.Tools.Add(search);
 
@@ -39,5 +40,5 @@ ProjectResponsesClient responses = projectClient.ProjectOpenAIClient
     .GetProjectResponsesClientForAgent(agentName, conversation);
 
 ResponseResult response = await responses.CreateResponseAsync(
-    "Summarize what the indexed documents say about our return policy.");
+    "Which hotels are rated highly and have a pool? List a few with their ratings.");
 Console.WriteLine(response.GetOutputText());

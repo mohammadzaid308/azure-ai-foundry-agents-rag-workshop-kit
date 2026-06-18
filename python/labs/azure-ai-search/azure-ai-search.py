@@ -7,7 +7,7 @@ from azure.ai.projects.models import (
     PromptAgentDefinition,
     AzureAISearchTool,
     AzureAISearchToolResource,
-    AzureAISearchIndex,
+    AISearchIndexResource,
 )
 
 load_dotenv()
@@ -19,12 +19,15 @@ SEARCH_INDEX_NAME = os.environ.get("FOUNDRY_SEARCH_INDEX_NAME", "workshop-index"
 
 project = AIProjectClient(endpoint=PROJECT_ENDPOINT, credential=DefaultAzureCredential())
 
+search_connection = project.connections.get(SEARCH_CONNECTION_NAME)
+
 search = AzureAISearchTool(
     azure_ai_search=AzureAISearchToolResource(
         indexes=[
-            AzureAISearchIndex(
-                connection_name=SEARCH_CONNECTION_NAME,
+            AISearchIndexResource(
+                project_connection_id=search_connection.id,
                 index_name=SEARCH_INDEX_NAME,
+                query_type="vector_semantic_hybrid",
             )
         ]
     )
@@ -44,6 +47,6 @@ conversation = openai.conversations.create()
 response = openai.responses.create(
     conversation=conversation.id,
     extra_body={"agent_reference": {"name": agent.name, "type": "agent_reference"}},
-    input="Summarize what the indexed documents say about our return policy.",
+    input="Based on the indexed documents, recommend a couple of highly rated hotels and summarize what makes them appealing.",
 )
 print(response.output_text)

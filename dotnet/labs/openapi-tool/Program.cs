@@ -9,17 +9,14 @@ string projectEndpoint = Environment.GetEnvironmentVariable("FOUNDRY_PROJECT_END
     ?? throw new InvalidOperationException("FOUNDRY_PROJECT_ENDPOINT is required.");
 string agentName = Environment.GetEnvironmentVariable("FOUNDRY_AGENT_NAME") ?? "openapi-agent";
 string modelDeployment = Environment.GetEnvironmentVariable("FOUNDRY_MODEL_DEPLOYMENT") ?? "gpt-4o";
-string openApiConnectionId = Environment.GetEnvironmentVariable("FOUNDRY_OPENAPI_CONNECTION_ID")
-    ?? throw new InvalidOperationException("FOUNDRY_OPENAPI_CONNECTION_ID is required.");
 
 AIProjectClient projectClient = new(new Uri(projectEndpoint), new Azure.Identity.DefaultAzureCredential());
 
-// Load the OpenAPI spec and register it as a tool, authenticated via a Foundry connection
+// Load the OpenAPI spec and register it as a tool (public API, anonymous auth)
 BinaryData spec = BinaryData.FromBytes(
     File.ReadAllBytes(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "weather-openapi.json")));
-var auth = new OpenApiProjectConnectionAuthenticationDetails(
-    new OpenApiProjectConnectionSecurityScheme(openApiConnectionId));
-var openapi = new OpenAPITool(new OpenApiFunctionDefinition("getWeather", spec, auth));
+var openapi = new OpenAPITool(
+    new OpenApiFunctionDefinition("getWeather", spec, new OpenAPIAnonymousAuthenticationDetails()));
 
 DeclarativeAgentDefinition definition = new(model: modelDeployment)
 {

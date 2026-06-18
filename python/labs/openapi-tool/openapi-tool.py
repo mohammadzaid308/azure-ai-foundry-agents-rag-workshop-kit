@@ -22,14 +22,12 @@ with open(os.path.join(os.path.dirname(__file__), "weather-openapi.json")) as f:
     spec = json.load(f)
 
 openapi = OpenApiTool(
-    openapi=[
-        OpenApiFunctionDefinition(
-            name="weather",
-            description="Get weather for a location.",
-            spec=spec,
-            auth=OpenApiAnonymousAuthDetails(),
-        )
-    ]
+    openapi=OpenApiFunctionDefinition(
+        name="weather",
+        description="Get weather for a location.",
+        spec=spec,
+        auth=OpenApiAnonymousAuthDetails(),
+    )
 )
 
 agent = project.agents.create_version(
