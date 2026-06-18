@@ -9,5 +9,7 @@
     <ItemGroup>
         <PackageReference Include="Azure.AI.Projects" Version="2.0.1" />
         <PackageReference Include="Azure.AI.Extensions.OpenAI" Version="2.0.0" />
+        <PackageReference Include="Azure.Monitor.OpenTelemetry.Exporter" Version="1.4.0" />
+        <PackageReference Include="OpenTelemetry" Version="1.12.0" />
     </ItemGroup>
 </Project>

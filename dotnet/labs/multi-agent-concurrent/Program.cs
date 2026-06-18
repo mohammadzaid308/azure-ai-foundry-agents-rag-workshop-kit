@@ -1,36 +1,133 @@
 using Azure.AI.Projects;
+using Azure.AI.Projects.Agents;
 using Azure.AI.Extensions.OpenAI;
 using OpenAI.Responses;
 
-#pragma warning disable OPENAI001
+#pragma warning disable OPENAI001, AAIP001
 
 string projectEndpoint = Environment.GetEnvironmentVariable("FOUNDRY_PROJECT_ENDPOINT")
     ?? throw new InvalidOperationException("FOUNDRY_PROJECT_ENDPOINT is required.");
 string modelDeployment = Environment.GetEnvironmentVariable("FOUNDRY_MODEL_DEPLOYMENT") ?? "gpt-4o";
+string workflowName = Environment.GetEnvironmentVariable("FOUNDRY_CONCURRENT_WORKFLOW_NAME") ?? "support-escalation-workflow";
 
-AIProjectClient projectClient = new(new Uri(projectEndpoint), new Azure.Identity.DefaultAzureCredential());
-ProjectResponsesClient responses =
-    projectClient.ProjectOpenAIClient.GetProjectResponsesClientForModel(modelDeployment);
+AIProjectClient projectClient = new(
+    endpoint: new Uri(projectEndpoint),
+    tokenProvider: new Azure.Identity.DefaultAzureCredential());
+AgentAdministrationClient admin = projectClient.AgentAdministrationClient;
 
-string product = "a smart water bottle";
+// A day-to-day customer-support scenario handled with the "concurrent" pattern:
+// three specialist agents look at the same complaint *in parallel* (fan-out),
+// then a supervisor agent merges their findings into one reply (fan-in).
+string complaint =
+    "I've been a customer for 3 years and I'm really frustrated. My internet has " +
+    "dropped every evening this week, and on top of that you charged me a $15 " +
+    "'equipment fee' I never agreed to. I want this sorted out today.";
 
-// Concurrent pattern: run independent agents in parallel, then aggregate.
-var prosTask = responses.CreateResponseAsync($"You are an optimist. List 3 pros of {product}.");
-var consTask = responses.CreateResponseAsync($"You are a skeptic. List 3 cons of {product}.");
+(string Name, string Instructions)[] specialists =
+{
+    (
+        "support-sentiment",
+        "You are a customer-sentiment analyst. In 1-2 sentences, describe the " +
+        "customer's emotion and how urgent this is."
+    ),
+    (
+        "support-technical",
+        "You are a technical support specialist. Identify the likely technical " +
+        "problem and list concrete troubleshooting steps."
+    ),
+    (
+        "support-billing",
+        "You are a billing specialist. Identify any billing or refund issue and " +
+        "state exactly what action should be taken."
+    ),
+};
 
-await Task.WhenAll(prosTask, consTask);
+(string Name, string Instructions) supervisor =
+(
+    "support-supervisor",
+    "You are a support supervisor. Using the specialist analyses, write one " +
+    "warm, professional reply to the customer that addresses every point, then " +
+    "add a final line 'Recommended internal action: ...'."
+);
 
-ResponseResult pros = await prosTask;
-ResponseResult cons = await consTask;
+// Create every agent so they are visible in the Foundry portal.
+foreach ((string name, string instructions) in specialists.Append(supervisor))
+{
+    DeclarativeAgentDefinition definition = new(model: modelDeployment) { Instructions = instructions };
+    ProjectsAgentVersion agent = await admin.CreateAgentVersionAsync(
+        agentName: name,
+        options: new(definition));
+    Console.WriteLine($"Created agent '{agent.Name}' (version {agent.Version})");
+}
 
-Console.WriteLine("--- Pros ---");
-Console.WriteLine(pros.GetOutputText());
-Console.WriteLine("\n--- Cons ---");
-Console.WriteLine(cons.GetOutputText());
+// Deploy the escalation as a *workflow agent* so the flow (sentiment,
+// technical, billing -> supervisor) shows up in the Foundry portal, not just
+// the individual agents. The CSDL definition lives in workflow.yaml.
+string workflowYaml = await File.ReadAllTextAsync(
+    Path.Combine(AppContext.BaseDirectory, "workflow.yaml"));
 
-// Aggregator agent synthesizes both views
-ResponseResult verdict = await responses.CreateResponseAsync(
-    "You are a product analyst. Given these pros and cons, give a one-sentence verdict.\n\n" +
-    $"PROS:\n{pros.GetOutputText()}\n\nCONS:\n{cons.GetOutputText()}");
-Console.WriteLine("\n--- Verdict ---");
-Console.WriteLine(verdict.GetOutputText());
+ProjectsAgentVersion workflow = await admin.CreateAgentVersionAsync(
+    agentName: workflowName,
+    options: new(WorkflowAgentDefinition.FromYaml(workflowYaml)),
+    foundryFeatures: "WorkflowAgents=V1Preview"); // Workflow agents are a preview feature (opt-in required).
+Console.WriteLine($"Created workflow agent '{workflow.Name}' (version {workflow.Version})");
+
+Console.WriteLine("\n--- Customer complaint ---\n" + complaint);
+
+// Run the escalation with ONE trigger: a single request to the workflow agent.
+// Foundry orchestrates the specialists -> supervisor server-side.
+ProjectConversation conversation = await projectClient.ProjectOpenAIClient
+    .GetProjectConversationsClient()
+    .CreateProjectConversationAsync();
+
+async Task<string> Ask(string agentName, string text)
+{
+    ProjectResponsesClient r = projectClient.ProjectOpenAIClient
+        .GetProjectResponsesClientForAgent(agentName);
+    ResponseResult resp = await r.CreateResponseAsync(text);
+    return resp.GetOutputText();
+}
+
+try
+{
+    ProjectResponsesClient workflowResponses = projectClient.ProjectOpenAIClient
+        .GetProjectResponsesClientForAgent(workflowName, conversation);
+    ResponseResult result = await workflowResponses.CreateResponseAsync(complaint);
+    Console.WriteLine("\n--- Supervisor reply (single trigger) ---\n" + result.GetOutputText());
+}
+catch (Exception exc)
+{
+    // The Foundry "workflow agent" runtime is in preview and can be flaky for
+    // multi-step flows. The workflow agent is still created and visible in the
+    // portal; we fall back to the genuinely concurrent client-driven run
+    // (fan-out with Task.WhenAll).
+    Console.WriteLine("\n[preview] Single-trigger workflow run failed on the service:");
+    Console.WriteLine("  " + exc.Message.Split('\n')[0]);
+    Console.WriteLine("[preview] Falling back to a client-driven concurrent run of the same agents.\n");
+
+    // Fan-out: all three specialists analyze the complaint at the same time.
+    Task<string> sentimentTask = Ask("support-sentiment", complaint);
+    Task<string> technicalTask = Ask("support-technical", complaint);
+    Task<string> billingTask = Ask("support-billing", complaint);
+    await Task.WhenAll(sentimentTask, technicalTask, billingTask);
+
+    string sentiment = await sentimentTask;
+    string technical = await technicalTask;
+    string billing = await billingTask;
+    Console.WriteLine("--- Sentiment (support-sentiment) ---\n" + sentiment + "\n");
+    Console.WriteLine("--- Technical (support-technical) ---\n" + technical + "\n");
+    Console.WriteLine("--- Billing (support-billing) ---\n" + billing + "\n");
+
+    // Fan-in: the supervisor merges everything into one customer reply.
+    string reply = await Ask(
+        "support-supervisor",
+        $"Customer complaint:\n{complaint}\n\n" +
+        $"Sentiment analysis:\n{sentiment}\n\n" +
+        $"Technical analysis:\n{technical}\n\n" +
+        $"Billing analysis:\n{billing}");
+    Console.WriteLine("--- Supervisor reply (support-supervisor) ---\n" + reply);
+}
+
+Console.WriteLine(
+    $"\nDone. Open '{workflowName}' in the Foundry portal (Agents / Workflows) " +
+    "to see the concurrent support escalation flow.");

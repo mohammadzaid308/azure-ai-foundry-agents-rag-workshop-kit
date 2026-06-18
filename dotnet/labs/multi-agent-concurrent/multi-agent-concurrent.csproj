@@ -9,5 +9,10 @@
     <ItemGroup>
         <PackageReference Include="Azure.AI.Projects" Version="2.0.1" />
         <PackageReference Include="Azure.AI.Extensions.OpenAI" Version="2.0.0" />
+        <PackageReference Include="Azure.AI.Projects.Agents" Version="2.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="workflow.yaml" CopyToOutputDirectory="PreserveNewest" />
     </ItemGroup>
 </Project>

@@ -20,7 +20,7 @@ var openapi = new OpenAPITool(
 
 DeclarativeAgentDefinition definition = new(model: modelDeployment)
 {
-    Instructions = "Use the weather API tool to answer weather questions.",
+    Instructions = "Use the weather API tool to answer weather questions. Always call it with format=j1 so you get JSON, then summarize the current conditions.",
 };
 definition.Tools.Add(openapi);
 

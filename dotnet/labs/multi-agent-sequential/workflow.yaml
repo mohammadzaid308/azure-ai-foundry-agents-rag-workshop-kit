@@ -1,0 +1,30 @@
+# Customer-support ticket workflow (CSDL).
+# One trigger (OnConversationStart) fans the conversation through the three
+# support agents in order: triage -> resolver -> reply. Because they share the
+# conversation, each agent sees the previous agent's output.
+#
+# Deploying this as a workflow agent makes the workflow itself show up in the
+# Foundry portal (Agents / Workflows), not just the individual agents.
+kind: Workflow
+trigger:
+  kind: OnConversationStart
+  id: support_ticket_workflow
+  actions:
+    - kind: InvokeAzureAgent
+      id: invoke_triage
+      displayName: Triage
+      conversationId: =System.ConversationId
+      agent:
+        name: support-triage
+    - kind: InvokeAzureAgent
+      id: invoke_resolver
+      displayName: Resolution
+      conversationId: =System.ConversationId
+      agent:
+        name: support-resolver
+    - kind: InvokeAzureAgent
+      id: invoke_reply
+      displayName: Customer reply
+      conversationId: =System.ConversationId
+      agent:
+        name: support-reply

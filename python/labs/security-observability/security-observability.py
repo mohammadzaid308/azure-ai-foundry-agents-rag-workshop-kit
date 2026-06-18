@@ -20,26 +20,50 @@ openai = project.get_openai_client()
 
 # 3) Observability (optional): if APPLICATIONINSIGHTS_CONNECTION_STRING is set,
 #    enable Azure Monitor OpenTelemetry tracing. Requires azure-monitor-opentelemetry.
-span_cm = None
+#    opentelemetry ships as a dependency of azure-monitor-opentelemetry, so the
+#    tracer is always available; without configure_azure_monitor() spans simply
+#    become no-ops instead of being exported.
+from opentelemetry import trace
+
+tracer_provider = None
 if os.environ.get("APPLICATIONINSIGHTS_CONNECTION_STRING"):
     try:
         from azure.monitor.opentelemetry import configure_azure_monitor
-        from opentelemetry import trace
 
         configure_azure_monitor()
-        span_cm = trace.get_tracer(__name__).start_as_current_span("foundry.responses.create")
+        tracer_provider = trace.get_tracer_provider()
         print("Azure Monitor tracing enabled.")
     except ImportError:
         print("Install azure-monitor-opentelemetry to enable tracing.")
 
-if span_cm:
-    with span_cm:
-        response = openai.responses.create(
+tracer = trace.get_tracer(__name__)
+
+# Nested spans: a parent "handle" operation wraps two child model calls
+# (draft -> refine). Each span is exported to Application Insights as a
+# dependency, and the parent/child relationship is preserved in the trace
+# so you can see the full operation tree in the portal.
+with tracer.start_as_current_span("support.request.handle") as root:
+    root.set_attribute("workshop.lab", "security-observability")
+    root.set_attribute("foundry.model", MODEL_DEPLOYMENT)
+
+    with tracer.start_as_current_span("foundry.responses.draft") as draft:
+        draft.set_attribute("foundry.step", "draft")
+        first = openai.responses.create(
             model=MODEL_DEPLOYMENT, input="Give one safety tip for AI agents."
         )
-else:
-    response = openai.responses.create(
-        model=MODEL_DEPLOYMENT, input="Give one safety tip for AI agents."
-    )
+        tip = first.output_text
+        draft.set_attribute("foundry.output.length", len(tip))
+        print(f"Draft: {tip}")
 
-print(response.output_text)
+    with tracer.start_as_current_span("foundry.responses.refine") as refine:
+        refine.set_attribute("foundry.step", "refine")
+        second = openai.responses.create(
+            model=MODEL_DEPLOYMENT,
+            input=f"Rewrite this as a single concise checklist item: {tip}",
+        )
+        print(f"Refined: {second.output_text}")
+
+# Flush telemetry so spans are exported before the process exits.
+if tracer_provider is not None:
+    tracer_provider.force_flush()
+    print("Telemetry flushed to Azure Monitor.")

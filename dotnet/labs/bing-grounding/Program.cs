@@ -35,3 +35,38 @@ ProjectResponsesClient responses = projectClient.ProjectOpenAIClient
 ResponseResult response = await responses.CreateResponseAsync(
     "What are the latest announcements about Azure AI Foundry?");
 Console.WriteLine(response.GetOutputText());
+
+// Print source URLs so they are clickable in the terminal.
+// Bing grounding attaches UriCitation annotations to the message output.
+var citations = new List<(string Title, string Url)>();
+foreach (ResponseItem item in response.OutputItems)
+{
+    if (item is MessageResponseItem message)
+    {
+        foreach (ResponseContentPart part in message.Content)
+        {
+            foreach (ResponseMessageAnnotation annotation in part.OutputTextAnnotations)
+            {
+                if (annotation is UriCitationMessageAnnotation citation)
+                {
+                    string url = citation.Uri?.ToString() ?? string.Empty;
+                    string title = string.IsNullOrEmpty(citation.Title) ? url : citation.Title;
+                    if (url.Length > 0 && !citations.Any(c => c.Title == title && c.Url == url))
+                    {
+                        citations.Add((title, url));
+                    }
+                }
+            }
+        }
+    }
+}
+
+if (citations.Count > 0)
+{
+    Console.WriteLine("\nSources:");
+    for (int i = 0; i < citations.Count; i++)
+    {
+        Console.WriteLine($"  [{i + 1}] {citations[i].Title}");
+        Console.WriteLine($"      {citations[i].Url}");
+    }
+}

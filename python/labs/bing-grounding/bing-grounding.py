@@ -44,3 +44,20 @@ response = openai.responses.create(
     input="What are the latest announcements about Azure AI Foundry?",
 )
 print(response.output_text)
+
+# Print source URLs so they are clickable in the terminal.
+# Bing grounding attaches url_citation annotations to the message output.
+citations: list[tuple[str, str]] = []
+for item in response.output:
+    for content in getattr(item, "content", None) or []:
+        for annotation in getattr(content, "annotations", None) or []:
+            url = getattr(annotation, "url", None)
+            if url:
+                title = getattr(annotation, "title", "") or url
+                if (title, url) not in citations:
+                    citations.append((title, url))
+
+if citations:
+    print("\nSources:")
+    for index, (title, url) in enumerate(citations, start=1):
+        print(f"  [{index}] {title}\n      {url}")

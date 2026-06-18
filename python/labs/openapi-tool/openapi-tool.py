@@ -34,7 +34,7 @@ agent = project.agents.create_version(
     agent_name=AGENT_NAME,
     definition=PromptAgentDefinition(
         model=MODEL_DEPLOYMENT,
-        instructions="Use the weather API to answer weather questions.",
+        instructions="Use the weather API to answer weather questions. Always call it with format=j1 so you get JSON, then summarize the current conditions.",
         tools=[openapi],
     ),
 )

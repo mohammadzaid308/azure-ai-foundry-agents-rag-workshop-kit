@@ -1,0 +1,38 @@
+# Customer-support escalation workflow (CSDL).
+# One trigger (OnConversationStart) routes the complaint through the three
+# specialist agents and then the supervisor. Because they share the
+# conversation, the supervisor sees every specialist's analysis.
+#
+# NOTE: CSDL workflows execute their actions in order, so this deployed
+# workflow runs the specialists sequentially. The lab's client-side fallback
+# (asyncio.gather) is what demonstrates *true* concurrent fan-out. Deploying
+# the workflow agent makes the escalation flow visible in the Foundry portal.
+kind: Workflow
+trigger:
+  kind: OnConversationStart
+  id: support_escalation_workflow
+  actions:
+    - kind: InvokeAzureAgent
+      id: invoke_sentiment
+      displayName: Sentiment
+      conversationId: =System.ConversationId
+      agent:
+        name: support-sentiment
+    - kind: InvokeAzureAgent
+      id: invoke_technical
+      displayName: Technical
+      conversationId: =System.ConversationId
+      agent:
+        name: support-technical
+    - kind: InvokeAzureAgent
+      id: invoke_billing
+      displayName: Billing
+      conversationId: =System.ConversationId
+      agent:
+        name: support-billing
+    - kind: InvokeAzureAgent
+      id: invoke_supervisor
+      displayName: Supervisor reply
+      conversationId: =System.ConversationId
+      agent:
+        name: support-supervisor

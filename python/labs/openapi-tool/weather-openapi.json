@@ -8,7 +8,7 @@
         "operationId": "getWeather",
         "parameters": [
           { "name": "location", "in": "path", "required": true, "schema": { "type": "string" } },
-          { "name": "format", "in": "query", "required": false, "schema": { "type": "string" } }
+          { "name": "format", "in": "query", "required": true, "description": "Always set to 'j1' to receive structured JSON weather data instead of the default ANSI terminal art.", "schema": { "type": "string", "enum": ["j1"], "default": "j1" } }
         ],
         "responses": { "200": { "description": "Weather text" } }
       }
