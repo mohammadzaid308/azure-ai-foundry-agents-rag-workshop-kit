@@ -1,6 +1,9 @@
-using Azure;
-using Azure.AI.Agents.Persistent;
-using Azure.Identity;
+using Azure.AI.Projects;
+using Azure.AI.Projects.Agents;
+using Azure.AI.Extensions.OpenAI;
+using OpenAI.Responses;
+
+#pragma warning disable OPENAI001
 
 string projectEndpoint = Environment.GetEnvironmentVariable("FOUNDRY_PROJECT_ENDPOINT")
     ?? throw new InvalidOperationException("FOUNDRY_PROJECT_ENDPOINT is required.");
@@ -8,37 +11,33 @@ string agentName = Environment.GetEnvironmentVariable("FOUNDRY_AGENT_NAME")
     ?? throw new InvalidOperationException("FOUNDRY_AGENT_NAME is required.");
 string modelDeployment = Environment.GetEnvironmentVariable("FOUNDRY_MODEL_DEPLOYMENT") ?? "gpt-4.1-mini";
 
-PersistentAgentsClient client = new(projectEndpoint, new DefaultAzureCredential());
+AIProjectClient projectClient = new(
+    endpoint: new Uri(projectEndpoint),
+    tokenProvider: new Azure.Identity.DefaultAzureCredential());
 
-PersistentAgent agent = client.Administration.CreateAgent(
-    model: modelDeployment,
-    name: agentName,
-    instructions: "You are a helpful assistant for workshop questions.");
-
-PersistentAgentThread thread = client.Threads.CreateThread();
-client.Messages.CreateMessage(thread.Id, MessageRole.User, "What is the size of France in square miles?");
-ThreadRun run = client.Runs.CreateRun(thread, agent);
-
-do
+// Ensure the agent exists (create or roll a new version)
+DeclarativeAgentDefinition definition = new(model: modelDeployment)
 {
-    Thread.Sleep(TimeSpan.FromMilliseconds(500));
-    run = client.Runs.GetRun(thread.Id, run.Id);
-}
-while (run.Status == RunStatus.Queued || run.Status == RunStatus.InProgress);
+    Instructions = "You are a helpful assistant for workshop questions.",
+};
+ProjectsAgentVersion agent = projectClient.AgentAdministrationClient.CreateAgentVersion(
+    agentName: agentName,
+    options: new(definition));
 
-Pageable<PersistentThreadMessage> messages = client.Messages.GetMessages(
-    threadId: thread.Id,
-    order: ListSortOrder.Ascending);
+// Create a conversation so history is preserved across turns
+ProjectConversation conversation = await projectClient.ProjectOpenAIClient
+    .GetProjectConversationsClient()
+    .CreateProjectConversationAsync();
 
-foreach (PersistentThreadMessage threadMessage in messages)
-{
-    Console.Write($"{threadMessage.CreatedAt:yyyy-MM-dd HH:mm:ss} - {threadMessage.Role,10}: ");
-    foreach (MessageContent contentItem in threadMessage.ContentItems)
-    {
-        if (contentItem is MessageTextContent textItem)
-        {
-            Console.Write(textItem.Text);
-        }
-    }
-    Console.WriteLine();
-}
+// Bind a responses client to this agent + conversation
+ProjectResponsesClient responses = projectClient.ProjectOpenAIClient
+    .GetProjectResponsesClientForAgent(agentName, conversation);
+
+ResponseResult first = await responses.CreateResponseAsync(
+    "What is the size of France in square miles?");
+Console.WriteLine($"Agent: {first.GetOutputText()}");
+
+// Follow-up question in the same conversation (uses prior context)
+ResponseResult second = await responses.CreateResponseAsync(
+    "And what is its capital city?");
+Console.WriteLine($"Agent: {second.GetOutputText()}");

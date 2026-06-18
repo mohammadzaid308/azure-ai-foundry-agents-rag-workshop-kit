@@ -8,16 +8,20 @@ string projectEndpoint = Environment.GetEnvironmentVariable("FOUNDRY_PROJECT_END
     ?? throw new InvalidOperationException("FOUNDRY_PROJECT_ENDPOINT is required.");
 string modelDeployment = Environment.GetEnvironmentVariable("FOUNDRY_MODEL_DEPLOYMENT") ?? "gpt-4.1-mini";
 
-// Create the Foundry project client (Azure AI Projects 2.x)
 AIProjectClient projectClient = new(
     endpoint: new Uri(projectEndpoint),
     tokenProvider: new Azure.Identity.DefaultAzureCredential());
 
-// Call the model directly via the Responses API (no agent needed)
 ProjectResponsesClient responseClient =
     projectClient.ProjectOpenAIClient.GetProjectResponsesClientForModel(modelDeployment);
 
-ResponseResult response = await responseClient.CreateResponseAsync(
-    "What is the size of France in square miles?");
-
-Console.WriteLine(response.GetOutputText());
+// Stream the response token-by-token as it is generated
+await foreach (StreamingResponseUpdate update in responseClient.CreateResponseStreamingAsync(
+    "Explain what Azure AI Foundry is in three short sentences."))
+{
+    if (update is StreamingResponseOutputTextDeltaUpdate delta)
+    {
+        Console.Write(delta.Delta);
+    }
+}
+Console.WriteLine();

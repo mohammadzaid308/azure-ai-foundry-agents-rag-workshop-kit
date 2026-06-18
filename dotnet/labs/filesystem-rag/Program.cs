@@ -1,7 +1,6 @@
 using System.Text.RegularExpressions;
 using Azure.AI.Projects;
-using Azure.AI.Projects.OpenAI;
-using Azure.Identity;
+using Azure.AI.Extensions.OpenAI;
 using OpenAI.Responses;
 
 #pragma warning disable OPENAI001
@@ -12,12 +11,14 @@ string modelDeployment = Environment.GetEnvironmentVariable("FOUNDRY_MODEL_DEPLO
 
 AIProjectClient projectClient = new(
     endpoint: new Uri(projectEndpoint),
-    tokenProvider: new DefaultAzureCredential());
+    tokenProvider: new Azure.Identity.DefaultAzureCredential());
 
 string question = "What is our policy for travel expense approval and receipts?";
 string context = RetrieveContext(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "data"), question);
 
-ProjectResponsesClient responseClient = projectClient.OpenAI.GetProjectResponsesClientForModel(modelDeployment);
+ProjectResponsesClient responseClient =
+    projectClient.ProjectOpenAIClient.GetProjectResponsesClientForModel(modelDeployment);
+
 ResponseResult response = await responseClient.CreateResponseAsync(
     "You are an assistant that must answer using only the provided context. " +
     "If the answer is not in context, say you do not know.\n\n" +
@@ -47,4 +48,3 @@ static HashSet<string> Tokenize(string text)
         .Select(m => m.Value)
         .ToHashSet();
 }
-

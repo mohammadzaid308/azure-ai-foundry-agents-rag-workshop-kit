@@ -1,0 +1,17 @@
+{
+  "openapi": "3.0.0",
+  "info": { "title": "Weather API", "version": "1.0.0" },
+  "servers": [{ "url": "https://wttr.in" }],
+  "paths": {
+    "/{location}": {
+      "get": {
+        "operationId": "getWeather",
+        "parameters": [
+          { "name": "location", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "format", "in": "query", "required": false, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Weather text" } }
+      }
+    }
+  }
+}

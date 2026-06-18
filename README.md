@@ -1,16 +1,27 @@
 # Azure AI Foundry Agents + RAG Workshop Kit
 
-This repository is a focused 1-day, code-first workshop package with two independent tracks:
+A focused 1-day, code-first workshop package with two independent tracks:
 
 - `dotnet/`
 - `python/`
 
-It includes only agenda-relevant labs:
+Both tracks use the newest Azure AI Foundry SDK (Azure AI Projects 2.x with the
+OpenAI Responses/Conversations API). There is no legacy/deprecated agent code,
+and creating an agent is a workshop lab (Lab 2), not a prerequisite.
 
-1. Responses quickstart
-2. Create agent
-3. Chat with agent
-4. Filesystem RAG (local files + Foundry model)
+## Labs (mapped to the 1-day agenda)
+
+| Agenda | Lab folder | Focus |
+| --- | --- | --- |
+| Lab 1 | `responses`, `streaming-responses` | First model call + token streaming |
+| Lab 2 | `create-agent`, `chat-with-agent`, `agent-function`, `filesystem-rag` | Build/chat with agents, function calling, file RAG |
+| Lab 3 | `bing-grounding`, `azure-ai-search`, `openapi-tool` | Grounding with Bing, AI Search, OpenAPI |
+| Lab 4 | `multi-agent-sequential`, `multi-agent-concurrent` | Multi-agent orchestration |
+| Lab 5 | `security-observability` | RBAC checks + tracing |
+| Lab 6 | `capstone` | Combine everything |
+
+Each track has the same labs, isolated per language. See `dotnet/README.md` and
+`python/README.md` for the per-lab table and run instructions.
 
 ## Prerequisites
 
@@ -26,33 +37,43 @@ It includes only agenda-relevant labs:
 
 You need a working Foundry **account + project + model deployment** before any lab runs.
 
-1. Create or use an **Azure AI Foundry account** (the `Microsoft.CognitiveServices/accounts` resource of kind AIServices).
+1. Create or use an **Azure AI Foundry account** (the
+   `Microsoft.CognitiveServices/accounts` resource of kind AIServices).
 2. Create a **Foundry project** under that account.
 3. Deploy at least one model in the project (for example `gpt-4.1-mini`).
 4. Collect these values before running labs:
    - `FOUNDRY_PROJECT_ENDPOINT` in the form
      `https://<resource>.services.ai.azure.com/api/projects/<project>`
    - `FOUNDRY_MODEL_DEPLOYMENT` - the model deployment name in your project
-   - `FOUNDRY_AGENT_NAME` - the agent name used/created in the labs
+   - `FOUNDRY_AGENT_NAME` - the agent name created in the labs
 5. Make sure each participant can authenticate to the same tenant/subscription:
    ```bash
    az login
    az account set --subscription "<SUBSCRIPTION_ID>"
    ```
 
-> The infra in `dotnet/infra` and `python/infra` (Terraform) can provision the account, project,
-> and model deployment for you. After `terraform apply`, read the outputs to fill the values above.
+> The infra in `dotnet/infra` and `python/infra` (Terraform) can provision the
+> account, project, and model deployment for you. After `terraform apply`, read
+> the outputs to fill the values above.
+
+#### Optional connections for Lab 3 (grounding)
+
+The grounding labs need Foundry connections created in your project, plus env vars:
+
+- Bing grounding: `FOUNDRY_BING_CONNECTION_ID`
+- Azure AI Search: `FOUNDRY_SEARCH_CONNECTION_NAME`, `FOUNDRY_SEARCH_INDEX_NAME`
 
 ## Roles (shared Foundry project)
 
-These labs authenticate with `DefaultAzureCredential` (your `az login` identity), so each person
-needs an Azure RBAC role on the **Foundry project**.
+These labs authenticate with `DefaultAzureCredential` (your `az login` identity),
+so each person needs an Azure RBAC role on the **Foundry project**.
 
-- **Azure AI  participant developersUser** 
+- **Azure AI User** (participants / developers)
   - Use models, run responses, create/run agents, execute all labs
   - Assign at **project scope**
-- **Azure AI Project  facilitators/adminsManager** 
-  - Everything an Azure AI User can do, plus manage project settings, deployments, and role assignments
+- **Azure AI Project Manager** (facilitators / admins)
+  - Everything an Azure AI User can do, plus manage project settings, deployments,
+    and role assignments
   - Assign at **project scope** (or **account scope** for workshop organizers)
 
 ### Role assignment steps (facilitator)
@@ -80,13 +101,14 @@ needs an Azure RBAC role on the **Foundry project**.
 
 1. Setup and environment check (30 min)
 2. Lab 1 + Lab 2 (90 min)
-3. Lab 3 (60 min)
-4. Lab 4 Filesystem RAG (90 min)
-5. Wrap-up and troubleshooting (30 min)
+3. Lab 3 grounding (60 min)
+4. Lab 4 multi-agent (60 min)
+5. Lab 5 + Lab 6 capstone (60 min)
+6. Wrap-up and troubleshooting (30 min)
 
 ## Repository files
 
-- `AGENTS. harness engineering execution rulesmd` 
-- `FILES. what each folder/file is formd` 
-- `dotnet/README. .NET runbookmd` 
-- `python/README. Python runbookmd` 
+- `AGENTS.md` - harness-engineering execution rules
+- `FILES.md` - what each folder/file is for
+- `dotnet/README.md` - .NET runbook
+- `python/README.md` - Python runbook
