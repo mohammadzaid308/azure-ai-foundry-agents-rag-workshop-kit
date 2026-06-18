@@ -8,7 +8,7 @@ from azure.ai.projects.models import PromptAgentDefinition
 load_dotenv()
 PROJECT_ENDPOINT = os.environ["FOUNDRY_PROJECT_ENDPOINT"]
 AGENT_NAME = os.environ["FOUNDRY_AGENT_NAME"]
-MODEL_DEPLOYMENT = os.environ.get("FOUNDRY_MODEL_DEPLOYMENT", "gpt-4.1-mini")
+MODEL_DEPLOYMENT = os.environ.get("FOUNDRY_MODEL_DEPLOYMENT", "gpt-4o")
 
 # Create project client to call Foundry API
 project = AIProjectClient(

@@ -32,7 +32,7 @@ def retrieve_context(data_dir: Path, question: str, top_k: int = 2) -> str:
 def main() -> None:
     load_dotenv()
     endpoint = os.environ["FOUNDRY_PROJECT_ENDPOINT"]
-    model = os.environ.get("FOUNDRY_MODEL_DEPLOYMENT", "gpt-4.1-mini")
+    model = os.environ.get("FOUNDRY_MODEL_DEPLOYMENT", "gpt-4o")
 
     project = AIProjectClient(endpoint=endpoint, credential=DefaultAzureCredential())
     openai = project.get_openai_client()

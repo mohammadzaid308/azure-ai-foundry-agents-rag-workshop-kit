@@ -9,7 +9,7 @@ string projectEndpoint = Environment.GetEnvironmentVariable("FOUNDRY_PROJECT_END
     ?? throw new InvalidOperationException("FOUNDRY_PROJECT_ENDPOINT is required.");
 string agentName = Environment.GetEnvironmentVariable("FOUNDRY_AGENT_NAME")
     ?? throw new InvalidOperationException("FOUNDRY_AGENT_NAME is required.");
-string modelDeployment = Environment.GetEnvironmentVariable("FOUNDRY_MODEL_DEPLOYMENT") ?? "gpt-4.1-mini";
+string modelDeployment = Environment.GetEnvironmentVariable("FOUNDRY_MODEL_DEPLOYMENT") ?? "gpt-4o";
 
 AIProjectClient projectClient = new(
     endpoint: new Uri(projectEndpoint),

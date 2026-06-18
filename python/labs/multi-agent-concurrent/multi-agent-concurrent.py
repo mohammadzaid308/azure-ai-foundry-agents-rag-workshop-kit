@@ -7,7 +7,7 @@ from azure.ai.projects.aio import AIProjectClient
 
 load_dotenv()
 PROJECT_ENDPOINT = os.environ["FOUNDRY_PROJECT_ENDPOINT"]
-MODEL_DEPLOYMENT = os.environ.get("FOUNDRY_MODEL_DEPLOYMENT", "gpt-4.1-mini")
+MODEL_DEPLOYMENT = os.environ.get("FOUNDRY_MODEL_DEPLOYMENT", "gpt-4o")
 
 PRODUCT = "a smart water bottle"
 

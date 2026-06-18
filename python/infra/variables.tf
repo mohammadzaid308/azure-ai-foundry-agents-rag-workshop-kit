@@ -19,13 +19,13 @@ variable "project_name" {
 variable "model_name" {
   description = "The model to deploy"
   type        = string
-  default     = "gpt-4.1"
+  default     = "gpt-4o"
 }
 
 variable "model_version" {
   description = "The version of the model"
   type        = string
-  default     = "2025-04-14"
+  default     = "2024-11-20"
 }
 
 variable "model_capacity" {

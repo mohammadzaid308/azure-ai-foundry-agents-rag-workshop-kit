@@ -40,7 +40,7 @@ You need a working Foundry **account + project + model deployment** before any l
 1. Create or use an **Azure AI Foundry account** (the
    `Microsoft.CognitiveServices/accounts` resource of kind AIServices).
 2. Create a **Foundry project** under that account.
-3. Deploy at least one model in the project (for example `gpt-4.1-mini`).
+3. Deploy at least one model in the project (for example `gpt-4o`).
 4. Collect these values before running labs:
    - `FOUNDRY_PROJECT_ENDPOINT` in the form
      `https://<resource>.services.ai.azure.com/api/projects/<project>`

@@ -13,7 +13,7 @@ from azure.ai.projects.models import (
 load_dotenv()
 PROJECT_ENDPOINT = os.environ["FOUNDRY_PROJECT_ENDPOINT"]
 AGENT_NAME = os.environ.get("FOUNDRY_AGENT_NAME", "search-agent")
-MODEL_DEPLOYMENT = os.environ.get("FOUNDRY_MODEL_DEPLOYMENT", "gpt-4.1-mini")
+MODEL_DEPLOYMENT = os.environ.get("FOUNDRY_MODEL_DEPLOYMENT", "gpt-4o")
 SEARCH_CONNECTION_NAME = os.environ["FOUNDRY_SEARCH_CONNECTION_NAME"]
 SEARCH_INDEX_NAME = os.environ.get("FOUNDRY_SEARCH_INDEX_NAME", "workshop-index")
 
