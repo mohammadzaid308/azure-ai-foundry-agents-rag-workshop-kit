@@ -1,0 +1,24 @@
+.DS_Store
+.vscode/
+.idea/
+
+# Terraform
+**/.terraform/
+**/.terraform.lock.hcl
+**/*.tfstate
+**/*.tfstate.*
+**/*.tfplan
+
+# Python
+**/__pycache__/
+**/.venv/
+**/venv/
+
+# .NET
+**/bin/
+**/obj/
+
+# Env files
+.env
+**/.env
+
