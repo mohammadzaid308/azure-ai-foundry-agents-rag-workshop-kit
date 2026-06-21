@@ -1,0 +1,16 @@
+{
+  "product_id": "CK-020",
+  "name": "Chocolate Chip Cookie",
+  "description": "Our classic chocolate chip cookie, soft and chewy with melty chocolate.",
+  "category": "Cookies",
+  "price": 3.05,
+  "availability": "Seasonal",
+  "ingredients": "flour, butter, sugar, brown sugar, eggs, vanilla extract, baking soda, oats, raisins, cinnamon",
+  "rating": 3.9,
+  "release_date": "2024-01-30",
+  "tags": [
+    "nut-free",
+    "vegan"
+  ],
+  "image_url": "https://frankiesbakery.com/images/ck_020.jpg"
+}

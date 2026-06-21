@@ -1,0 +1,17 @@
+{
+  "product_id": "BD-005",
+  "name": "Multigrain Bread",
+  "description": "Sweet cranberries and crunchy walnuts baked into a rustic loaf.",
+  "category": "Bread",
+  "price": 13.3,
+  "availability": "Out of Stock",
+  "ingredients": "flour, water, salt, sourdough starter",
+  "rating": 4.6,
+  "release_date": "2024-02-25",
+  "tags": [
+    "vegan",
+    "nut-free",
+    "holiday"
+  ],
+  "image_url": "https://frankiesbakery.com/images/bd_005.jpg"
+}

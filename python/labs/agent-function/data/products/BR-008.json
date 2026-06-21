@@ -1,0 +1,16 @@
+{
+  "product_id": "BR-008",
+  "name": "Espresso Swirl Brownie",
+  "description": "Sweet raspberries swirled into a dark chocolate brownie.",
+  "category": "Brownies",
+  "price": 3.16,
+  "availability": "Out of Stock",
+  "ingredients": "flour, sugar, cocoa powder, butter, eggs, vanilla extract, salt, walnuts",
+  "rating": 4.3,
+  "release_date": "2024-03-22",
+  "tags": [
+    "vegan",
+    "best-seller"
+  ],
+  "image_url": "https://frankiesbakery.com/images/br_008.jpg"
+}

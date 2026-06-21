@@ -1,0 +1,45 @@
+{
+  "name": "Adam Stark",
+  "relationship_to_mason": "son",
+  "age": 10,
+  "birthday": "2015-06-05",
+  "occasions_observed": [
+    "Christmas",
+    "Birthday"
+  ],
+  "likes": [
+    "Lego, especially City and Star Wars sets",
+    "Pokémon trading card game",
+    "Minecraft and Roblox",
+    "Soccer (plays in the town rec league)",
+    "Science kits (crystal growing, chemistry, volcanoes)",
+    "Dinosaurs and paleontology facts",
+    "Graphic novels (Dog Man, Wings of Fire, Bone)",
+    "Family board game nights",
+    "Chocolate chip cookies"
+  ],
+  "dislikes": [
+    "Spicy foods",
+    "Scratchy wool fabrics",
+    "Anything labeled 'for big kids only' (sensitive about feeling behind his older brother)",
+    "Receiving clothing as a main present",
+    "Horror or scary themes",
+    "Loud crowded places"
+  ],
+  "interests": [
+    "Paleontology and natural history museums",
+    "Building elaborate Lego scenes",
+    "Soccer practice twice a week",
+    "Mild interest in family-friendly YouTube gaming channels"
+  ],
+  "favorite_colors": [
+    "Blue",
+    "Orange"
+  ],
+  "sizes": {
+    "shirt": "Boys 10",
+    "shoe_us_kids": 4,
+    "soccer_cleats": 4
+  },
+  "notes": "Reads a grade or two above his level. Loves explaining facts to anyone who will listen. Prefers physical, hands-on gifts over screen-based ones."
+}

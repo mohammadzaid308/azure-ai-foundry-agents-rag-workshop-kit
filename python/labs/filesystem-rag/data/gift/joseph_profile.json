@@ -1,0 +1,49 @@
+{
+  "name": "Joseph Stark",
+  "relationship_to_mason": "son",
+  "age": 15,
+  "birthday": "2010-08-22",
+  "occasions_observed": [
+    "Christmas",
+    "Birthday"
+  ],
+  "likes": [
+    "PC gaming, especially Steam titles",
+    "Nintendo Switch",
+    "Basketball (plays JV at his high school)",
+    "Sneakers, especially Nike Air Force 1s and Jordans",
+    "Hoodies and oversized streetwear",
+    "Wireless gaming headphones",
+    "Anime, especially Demon Slayer and Jujutsu Kaisen",
+    "Spotify Premium and hip-hop playlists",
+    "Energy drinks (Celsius, Alani Nu)",
+    "Sushi for dinner outings"
+  ],
+  "dislikes": [
+    "Anything labeled 'for kids' or 'for big kids'",
+    "Educational toys",
+    "Books that look assigned for school",
+    "Dress shirts and ties",
+    "Novelty socks",
+    "'Uncle'-style cologne",
+    "Clothing from grandma-style brands",
+    "Itchy wool sweaters"
+  ],
+  "interests": [
+    "Building and upgrading his gaming PC",
+    "Watching the NBA, especially the Celtics",
+    "Weight training in the home garage gym",
+    "Discovering new hip-hop releases"
+  ],
+  "favorite_colors": [
+    "Black",
+    "Neon green",
+    "White"
+  ],
+  "sizes": {
+    "shirt": "Men's M",
+    "shoe_us_men": 10,
+    "hoodie": "Men's M"
+  },
+  "notes": "Saving up for a higher-end GPU. Cares about brands and 'cool factor' but appreciates practical tech upgrades. Prefers gift cards over wrong-size clothing surprises."
+}

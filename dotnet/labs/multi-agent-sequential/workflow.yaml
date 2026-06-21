@@ -1,30 +1,30 @@
-# Customer-support ticket workflow (CSDL).
+# Frankie's Bakery support workflow (CSDL).
 # One trigger (OnConversationStart) fans the conversation through the three
-# support agents in order: triage -> resolver -> reply. Because they share the
-# conversation, each agent sees the previous agent's output.
+# bakery support agents in order: intake -> specialist -> synthesizer. Because
+# they share the conversation, each agent sees the previous agent's output.
 #
 # Deploying this as a workflow agent makes the workflow itself show up in the
 # Foundry portal (Agents / Workflows), not just the individual agents.
 kind: Workflow
 trigger:
   kind: OnConversationStart
-  id: support_ticket_workflow
+  id: bakery_support_workflow
   actions:
     - kind: InvokeAzureAgent
-      id: invoke_triage
-      displayName: Triage
+      id: invoke_intake
+      displayName: Intake
       conversationId: =System.ConversationId
       agent:
-        name: support-triage
+        name: bakery-intake
     - kind: InvokeAzureAgent
-      id: invoke_resolver
-      displayName: Resolution
+      id: invoke_specialist
+      displayName: Specialist
       conversationId: =System.ConversationId
       agent:
-        name: support-resolver
+        name: bakery-specialist
     - kind: InvokeAzureAgent
-      id: invoke_reply
+      id: invoke_synthesizer
       displayName: Customer reply
       conversationId: =System.ConversationId
       agent:
-        name: support-reply
+        name: bakery-synthesizer

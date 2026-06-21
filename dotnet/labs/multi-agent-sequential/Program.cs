@@ -5,40 +5,61 @@ using OpenAI.Responses;
 
 #pragma warning disable OPENAI001, AAIP001
 
+// Lab: Sequential multi-agent (Frankie's Bakery support pipeline).
+//
+//   bakery-intake  ->  bakery-specialist  ->  bakery-synthesizer
+//   (classify+route)   (answer w/ knowledge)   (warm customer reply)
+//
+// Specialist knowledge is loaded from the local instruction files in
+// ./data/bakery so the bakery's real menu/orders/hours/complaints rules drive
+// the agent. Agent creation + runs reach Azure AI Foundry.
+
 string projectEndpoint = Environment.GetEnvironmentVariable("FOUNDRY_PROJECT_ENDPOINT")
     ?? throw new InvalidOperationException("FOUNDRY_PROJECT_ENDPOINT is required.");
 string modelDeployment = Environment.GetEnvironmentVariable("FOUNDRY_MODEL_DEPLOYMENT") ?? "gpt-4o";
-string workflowName = Environment.GetEnvironmentVariable("FOUNDRY_WORKFLOW_NAME") ?? "support-ticket-workflow";
+string workflowName = Environment.GetEnvironmentVariable("FOUNDRY_WORKFLOW_NAME") ?? "bakery-support-workflow";
+
+string bakeryDir = Path.Combine(AppContext.BaseDirectory, "data", "bakery");
+
+string InstructionsOf(string fileName)
+{
+    string text = File.ReadAllText(Path.Combine(bakeryDir, fileName));
+    string[] parts = text.Split("---");
+    return parts.Length > 1 ? parts[1].Trim() : text.Trim();
+}
+
+string specialistKnowledge = string.Join("\n\n", new[]
+{
+    ("Menu", "MenuAgent.md"),
+    ("Orders", "OrdersAgent.md"),
+    ("Complaints", "ComplaintsAgent.md"),
+    ("Hours", "HoursAgent.md"),
+}.Select(d => $"## {d.Item1}\n{InstructionsOf(d.Item2)}"));
 
 AIProjectClient projectClient = new(
     endpoint: new Uri(projectEndpoint),
     tokenProvider: new Azure.Identity.DefaultAzureCredential());
 AgentAdministrationClient admin = projectClient.AgentAdministrationClient;
 
-//   support-triage  ->  support-resolver  ->  support-reply
-//   (classify)          (figure out fix)      (write the customer reply)
-//
-// This is the "sequential" multi-agent pattern: a clear hand-off from one
-// specialist to the next.
 (string Name, string Instructions)[] agentSpecs =
 {
     (
-        "support-triage",
-        "You are a customer-support triage agent. Read the customer's message and " +
-        "classify it. Reply with exactly two lines:\n" +
-        "Category: <Billing | Technical | Account | Other>\n" +
-        "Priority: <Low | Medium | High>"
+        "bakery-intake",
+        "You are Frankie's Bakery support intake. Classify the customer's message and " +
+        "restate it cleanly. Reply with exactly two lines:\n" +
+        "Route: <menu | orders | complaints | hours | else>\n" +
+        "Summary: <one-sentence restatement of what the customer needs>"
     ),
     (
-        "support-resolver",
-        "You are a customer-support resolution agent. Given the customer's message " +
-        "and its triage, write clear, numbered steps that will resolve the issue."
+        "bakery-specialist",
+        "You are a Frankie's Bakery support specialist. Use the department knowledge " +
+        "below to answer the customer's request accurately. If allergens or dietary " +
+        "restrictions are involved, call them out explicitly.\n\n" + specialistKnowledge
     ),
     (
-        "support-reply",
-        "You are a senior support agent. Rewrite the resolution into a warm, " +
-        "empathetic reply addressed to the customer. Keep it concise and " +
-        "professional. Return only the reply."
+        "bakery-synthesizer",
+        "You are a senior Frankie's Bakery agent. Rewrite the specialist's answer into a " +
+        "warm, concise, on-brand reply addressed directly to the customer. Return only the reply."
     ),
 };
 
@@ -51,9 +72,8 @@ foreach ((string name, string instructions) in agentSpecs)
     Console.WriteLine($"Created agent '{agent.Name}' (version {agent.Version})");
 }
 
-// Deploy the pipeline as a *workflow agent* so the workflow itself (triage ->
-// resolver -> reply) shows up in the Foundry portal, not just the individual
-// agents. The CSDL definition lives in workflow.yaml next to this lab.
+// Deploy the pipeline as a *workflow agent* so the workflow itself shows up in
+// the Foundry portal. The CSDL definition lives in workflow.yaml next to this lab.
 string workflowYaml = await File.ReadAllTextAsync(
     Path.Combine(AppContext.BaseDirectory, "workflow.yaml"));
 
@@ -64,12 +84,10 @@ ProjectsAgentVersion workflow = await admin.CreateAgentVersionAsync(
 Console.WriteLine($"Created workflow agent '{workflow.Name}' (version {workflow.Version})");
 
 string ticket =
-    "Hi, I was charged twice for my subscription this month, and the app keeps " +
-    "crashing whenever I open the billing page. Can you help?";
+    "Hi! My daughter is allergic to tree nuts. Is the almond croissant safe for her, " +
+    "and what gluten-free options do you have?";
 Console.WriteLine("\n--- Customer ticket ---\n" + ticket);
 
-// Run the whole pipeline with ONE trigger: a single request to the workflow
-// agent. Foundry orchestrates triage -> resolver -> reply server-side.
 ProjectConversation conversation = await projectClient.ProjectOpenAIClient
     .GetProjectConversationsClient()
     .CreateProjectConversationAsync();
@@ -103,14 +121,14 @@ catch (Exception exc)
         return resp.GetOutputText();
     }
 
-    string triage = await Run("support-triage", ticket);
-    Console.WriteLine("--- Triage (support-triage) ---\n" + triage + "\n");
-    string resolution = await Run("support-resolver", $"Customer message:\n{ticket}\n\nTriage:\n{triage}");
-    Console.WriteLine("--- Resolution (support-resolver) ---\n" + resolution + "\n");
-    string reply = await Run("support-reply", resolution);
-    Console.WriteLine("--- Customer reply (support-reply) ---\n" + reply);
+    string intake = await Run("bakery-intake", ticket);
+    Console.WriteLine("--- Intake (bakery-intake) ---\n" + intake + "\n");
+    string answer = await Run("bakery-specialist", $"Customer message:\n{ticket}\n\nIntake:\n{intake}");
+    Console.WriteLine("--- Specialist (bakery-specialist) ---\n" + answer + "\n");
+    string reply = await Run("bakery-synthesizer", answer);
+    Console.WriteLine("--- Customer reply (bakery-synthesizer) ---\n" + reply);
 }
 
 Console.WriteLine(
     $"\nDone. Open '{workflowName}' in the Foundry portal (Agents / Workflows) " +
-    "to see the triage -> resolver -> reply workflow.");
+    "to see the intake -> specialist -> synthesizer workflow.");

@@ -10,4 +10,8 @@
         <PackageReference Include="Azure.AI.Projects" Version="2.0.1" />
         <PackageReference Include="Azure.AI.Extensions.OpenAI" Version="2.0.0" />
     </ItemGroup>
+
+    <ItemGroup>
+        <None Include="data/**/*" CopyToOutputDirectory="PreserveNewest" />
+    </ItemGroup>
 </Project>

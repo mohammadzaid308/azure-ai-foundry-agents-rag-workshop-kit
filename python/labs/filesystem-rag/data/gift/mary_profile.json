@@ -1,0 +1,46 @@
+{
+  "name": "Mary Stark",
+  "relationship_to_mason": "daughter",
+  "age": 5,
+  "birthday": "2020-11-09",
+  "occasions_observed": [
+    "Christmas",
+    "Birthday",
+    "Valentine's Day"
+  ],
+  "likes": [
+    "Disney princesses, especially Moana, Mirabel from Encanto, and Elsa",
+    "Unicorns and magical creatures",
+    "Art supplies (markers, stickers, watercolors, glitter glue)",
+    "Dress-up costumes and tutus",
+    "Plush animals, especially cats and bunnies",
+    "Picture books and bedtime stories",
+    "Pretend kitchen and grocery store play",
+    "Ballet class on Saturday mornings",
+    "Singing along to Encanto and Frozen soundtracks"
+  ],
+  "dislikes": [
+    "Loud electronic toys (sirens, shrieks)",
+    "Anything featuring bugs, spiders, or snakes",
+    "Scratchy or itchy clothes (refuses to wear them)",
+    "Dark or villain-themed characters (Maleficent, Ursula)",
+    "Spicy food",
+    "Dolls with glassy lifelike faces (finds them creepy)"
+  ],
+  "interests": [
+    "Beginner ballet at the local studio",
+    "Drawing pictures of her family",
+    "Watching Bluey and Encanto on repeat"
+  ],
+  "favorite_colors": [
+    "Pink",
+    "Lavender",
+    "Turquoise"
+  ],
+  "sizes": {
+    "shirt": "Girls 5T",
+    "shoe_us_kids": 11,
+    "ballet_slipper": "Child 11"
+  },
+  "notes": "Mild dairy sensitivity (no chocolate gifts with milk in large quantities). Goes to bed at 7:30 PM and loves a new book every few weeks. Prefers soft, cuddly, or sparkly gifts."
+}

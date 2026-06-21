@@ -14,11 +14,18 @@ and creating an agent is a workshop lab (Lab 2), not a prerequisite.
 | Agenda | Lab folder | Focus |
 | --- | --- | --- |
 | Lab 1 | `responses`, `streaming-responses` | First model call + token streaming |
-| Lab 2 | `create-agent`, `chat-with-agent`, `agent-function`, `filesystem-rag` | Build/chat with agents, function calling, file RAG |
+| Lab 2 | `create-agent`, `chat-with-agent`, `agent-function`, `filesystem-rag` | Build/chat with agents, bakery storefront function tools, GiftBot file RAG |
 | Lab 3 | `bing-grounding`, `azure-ai-search`, `openapi-tool` | Grounding with Bing, AI Search, OpenAPI |
-| Lab 4 | `multi-agent-sequential`, `multi-agent-concurrent` | Multi-agent orchestration |
-| Lab 5 | `security-observability` | RBAC checks + tracing |
+| Lab 4 | `multi-agent-sequential`, `multi-agent-concurrent` | Multi-agent orchestration (Frankie's Bakery support pipeline) |
+| Lab 5 | `evaluations`, `security-observability` | Quality gates (offline + Foundry Evaluations), RBAC checks + tracing |
 | Lab 6 | `capstone` | Combine everything |
+
+> The agent labs use a shared **Frankie's Bakery** / **GiftBot** scenario: a product
+> catalog (`agent-function`), a family gift corpus (`filesystem-rag`), a bakery
+> support pipeline (`multi-agent-sequential`), and a bakery answer-quality dataset
+> (`evaluations`). All data ships in each lab's `data/` folder so tool logic,
+> retrieval, and offline evaluation run with **no Azure calls**; only model/agent
+> requests reach Foundry.
 
 Each track has the same labs, isolated per language. See `dotnet/README.md` and
 `python/README.md` for the per-lab table and run instructions.

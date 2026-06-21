@@ -42,13 +42,14 @@ lab (Lab 2), not a prerequisite.
 | Lab 1: Streaming | `streaming-responses` | Token streaming with `CreateResponseStreamingAsync` |
 | Lab 2: Build an agent | `create-agent` | Create an agent version with `AgentAdministrationClient` |
 | Lab 2: Chat with an agent | `chat-with-agent` | Multi-turn chat over a conversation |
-| Lab 2: Function calling | `agent-function` | Local function tool loop |
-| Lab 2: File RAG | `filesystem-rag` | Retrieval over local `data/*.md` |
+| Lab 2: Function calling | `agent-function` | Bakery storefront tools (list/get/place order) over local product catalog |
+| Lab 2: File RAG | `filesystem-rag` | GiftBot retrieval over local family gift corpus (`data/gift`) |
 | Lab 3: Bing grounding | `bing-grounding` | Ground answers in live web results |
 | Lab 3: Azure AI Search | `azure-ai-search` | Ground answers in a search index |
 | Lab 3: OpenAPI tool | `openapi-tool` | Call an external API via OpenAPI |
-| Lab 4: Sequential | `multi-agent-sequential` | Chained agents (writer to editor to headline) |
+| Lab 4: Sequential | `multi-agent-sequential` | Frankie's Bakery support pipeline (intake to specialist to synthesizer) |
 | Lab 4: Concurrent | `multi-agent-concurrent` | Parallel agents plus aggregation |
+| Lab 5: Evaluations | `evaluations` | Bakery answer-quality grading (offline token-F1 gate, no Azure) |
 | Lab 5: Security and observability | `security-observability` | RBAC token check plus tracing |
 | Lab 6: Capstone | `capstone` | Starter to combine everything |
 

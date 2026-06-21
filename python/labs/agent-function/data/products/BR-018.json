@@ -1,0 +1,15 @@
+{
+  "product_id": "BR-018",
+  "name": "Blondie Brownie",
+  "description": "Classic brownie with crunchy walnuts for added texture.",
+  "category": "Brownies",
+  "price": 2.27,
+  "availability": "In Stock",
+  "ingredients": "flour, sugar, cocoa powder, butter, eggs, vanilla extract, salt, walnuts",
+  "rating": 4,
+  "release_date": "2024-05-08",
+  "tags": [
+    "holiday"
+  ],
+  "image_url": "https://frankiesbakery.com/images/br_018.jpg"
+}

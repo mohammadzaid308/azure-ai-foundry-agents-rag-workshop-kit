@@ -1,5 +1,12 @@
+"""Lab: Function tools (Frankie's Bakery storefront assistant).
+
+The model is given three local tools backed by the JSON product catalog in
+./data/products. The catalog read happens locally, so the tool logic works
+offline; only the model calls reach Azure AI Foundry.
+"""
 import json
 import os
+from pathlib import Path
 
 from dotenv import load_dotenv
 from azure.identity import DefaultAzureCredential
@@ -9,49 +16,101 @@ load_dotenv()
 PROJECT_ENDPOINT = os.environ["FOUNDRY_PROJECT_ENDPOINT"]
 MODEL_DEPLOYMENT = os.environ.get("FOUNDRY_MODEL_DEPLOYMENT", "gpt-4o")
 
+DATA_DIR = Path(__file__).parent / "data" / "products"
+ORDERS: list[dict] = []
+
+
+def _catalog() -> list[dict]:
+    return [json.loads(p.read_text()) for p in sorted(DATA_DIR.glob("*.json"))]
+
+
+def list_products(category: str | None = None) -> str:
+    items = _catalog()
+    if category:
+        items = [p for p in items if p["category"].lower() == category.lower()]
+    summary = [
+        {"product_id": p["product_id"], "name": p["name"],
+         "category": p["category"], "price": p["price"],
+         "availability": p["availability"]}
+        for p in items
+    ]
+    return json.dumps(summary)
+
+
+def get_product(product_id: str) -> str:
+    for p in _catalog():
+        if p["product_id"].lower() == product_id.lower():
+            return json.dumps(p)
+    return json.dumps({"error": f"No product {product_id}"})
+
+
+def place_order(product_id: str, quantity: int) -> str:
+    match = [p for p in _catalog() if p["product_id"].lower() == product_id.lower()]
+    if not match:
+        return json.dumps({"error": f"No product {product_id}"})
+    p = match[0]
+    order = {
+        "order_id": f"ORD-{len(ORDERS) + 1:04d}",
+        "product_id": p["product_id"],
+        "name": p["name"],
+        "quantity": quantity,
+        "line_total": round(p["price"] * quantity, 2),
+    }
+    ORDERS.append(order)
+    return json.dumps(order)
+
+
+DISPATCH = {"list_products": list_products, "get_product": get_product, "place_order": place_order}
+
+tools = [
+    {
+        "type": "function", "name": "list_products",
+        "description": "List bakery products, optionally filtered by category (Bread, Cake, Pastry, ...).",
+        "parameters": {"type": "object",
+                       "properties": {"category": {"type": "string"}}, "required": []},
+    },
+    {
+        "type": "function", "name": "get_product",
+        "description": "Get full detail (ingredients, rating, availability) for one product by its product_id.",
+        "parameters": {"type": "object",
+                       "properties": {"product_id": {"type": "string"}}, "required": ["product_id"]},
+    },
+    {
+        "type": "function", "name": "place_order",
+        "description": "Place an order for a product_id and quantity. Returns an order confirmation.",
+        "parameters": {"type": "object",
+                       "properties": {"product_id": {"type": "string"},
+                                      "quantity": {"type": "integer"}},
+                       "required": ["product_id", "quantity"]},
+    },
+]
+
 project = AIProjectClient(endpoint=PROJECT_ENDPOINT, credential=DefaultAzureCredential())
 openai = project.get_openai_client()
 
+question = (
+    "I'd like two loaves of your Challah Bread. "
+    "First confirm it exists and tell me the price, then place the order."
+)
 
-def get_weather(location: str) -> str:
-    return f"It is 21C and sunny in {location}."
-
-
-# 1) Declare a local tool the model can call
-tools = [
-    {
-        "type": "function",
-        "name": "get_weather",
-        "description": "Get the current weather for a city.",
-        "parameters": {
-            "type": "object",
-            "properties": {"location": {"type": "string"}},
-            "required": ["location"],
-        },
-    }
-]
-
-question = "What is the weather in Seattle?"
-
-# 2) First call: the model decides whether to call the function
 response = openai.responses.create(
     model=MODEL_DEPLOYMENT,
     input=[{"role": "user", "content": question}],
     tools=tools,
 )
 
-# 3) Execute any requested calls and return the outputs to the model
-tool_outputs = []
-for item in response.output:
-    if getattr(item, "type", "") == "function_call":
-        args = json.loads(item.arguments)
-        result = get_weather(args["location"])
-        tool_outputs.append(
-            {"type": "function_call_output", "call_id": item.call_id, "output": result}
-        )
-
-# 4) Second call: the model produces the final grounded answer
-if tool_outputs:
+# Tool-call loop: keep resolving function calls until the model produces text.
+for _ in range(5):
+    tool_outputs = []
+    for item in response.output:
+        if getattr(item, "type", "") == "function_call":
+            args = json.loads(item.arguments)
+            result = DISPATCH[item.name](**args)
+            tool_outputs.append(
+                {"type": "function_call_output", "call_id": item.call_id, "output": result}
+            )
+    if not tool_outputs:
+        break
     response = openai.responses.create(
         model=MODEL_DEPLOYMENT,
         previous_response_id=response.id,

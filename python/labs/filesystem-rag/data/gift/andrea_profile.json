@@ -1,0 +1,53 @@
+{
+  "name": "Andrea Stark",
+  "relationship_to_mason": "spouse",
+  "age": 38,
+  "birthday": "1988-03-14",
+  "anniversary": "2009-06-20",
+  "occasions_observed": [
+    "Christmas",
+    "Birthday",
+    "Valentine's Day",
+    "Mother's Day",
+    "Anniversary"
+  ],
+  "likes": [
+    "Pilates and yoga classes",
+    "True-crime podcasts",
+    "Gardening, especially herbs and perennials",
+    "Reading literary fiction",
+    "Soy and beeswax scented candles (vanilla, sandalwood, fig)",
+    "Sterling silver and pearl jewelry",
+    "Dark chocolate (70% or higher)",
+    "Italian red wine, especially Barolo and Chianti",
+    "Weekend brunch dates",
+    "Spa and massage experiences",
+    "Travel, especially Italy and the Mediterranean"
+  ],
+  "dislikes": [
+    "Loud surprise parties",
+    "Kitchen gadgets given as gifts",
+    "Cookbooks (feels like pressure to cook more)",
+    "Strong floral perfumes",
+    "Novelty or gag gifts",
+    "Anything with lavender scent (mild skin reaction)",
+    "Cheap costume jewelry"
+  ],
+  "interests": [
+    "Monthly book club",
+    "Pilates studio downtown (Tuesday and Thursday)",
+    "Growing heirloom herbs in raised beds",
+    "Planning a future Italy family trip"
+  ],
+  "favorite_colors": [
+    "Burgundy",
+    "Sage green",
+    "Cream"
+  ],
+  "sizes": {
+    "shirt": "M",
+    "shoe_us_women": 8,
+    "ring": 6
+  },
+  "notes": "Late-30s mom of three. Prefers thoughtful experiences and quality keepsakes over big shiny purchases. Allergic to lavender on skin. Values handwritten notes that come with the gift."
+}

@@ -1,0 +1,17 @@
+{
+  "product_id": "BD-010",
+  "name": "Baguette",
+  "description": "Braided, rich, and slightly sweet, ideal for special occasions.",
+  "category": "Bread",
+  "price": 14.84,
+  "availability": "In Stock",
+  "ingredients": "flour, water, salt, sourdough starter",
+  "rating": 3.5,
+  "release_date": "2024-02-12",
+  "tags": [
+    "holiday",
+    "sweet",
+    "best-seller"
+  ],
+  "image_url": "https://frankiesbakery.com/images/bd_010.jpg"
+}

@@ -1,0 +1,17 @@
+{
+  "product_id": "CK-019",
+  "name": "Gingerbread Cookie",
+  "description": "Cinnamon-sugar coated delight, soft and full of flavor.",
+  "category": "Cookies",
+  "price": 11.85,
+  "availability": "Seasonal",
+  "ingredients": "flour, butter, peanut butter, sugar, brown sugar, eggs, vanilla extract, baking soda",
+  "rating": 4,
+  "release_date": "2024-04-02",
+  "tags": [
+    "best-seller",
+    "gluten-free",
+    "dairy-free"
+  ],
+  "image_url": "https://frankiesbakery.com/images/ck_019.jpg"
+}

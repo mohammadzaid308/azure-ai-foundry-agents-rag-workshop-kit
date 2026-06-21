@@ -20,12 +20,13 @@
 - `labs/streaming-responses/` - Lab 1: token streaming
 - `labs/create-agent/` - Lab 2: create an agent version
 - `labs/chat-with-agent/` - Lab 2: multi-turn chat over a conversation
-- `labs/agent-function/` - Lab 2: local function tool loop
-- `labs/filesystem-rag/` - Lab 2: retrieval over local `data/*.md`
+- `labs/agent-function/` - Lab 2: bakery storefront function tools + `data/products` catalog
+- `labs/filesystem-rag/` - Lab 2: GiftBot retrieval over local `data/gift` corpus
 - `labs/bing-grounding/` - Lab 3: Bing grounding tool
 - `labs/azure-ai-search/` - Lab 3: Azure AI Search grounding tool
 - `labs/openapi-tool/` - Lab 3: OpenAPI tool
-- `labs/multi-agent-sequential/` - Lab 4: chained agents
+- `labs/multi-agent-sequential/` - Lab 4: Frankie's Bakery support pipeline + `data/bakery` instructions
 - `labs/multi-agent-concurrent/` - Lab 4: parallel agents + aggregation
+- `labs/evaluations/` - Lab 5: bakery answer-quality grading (offline .NET F1 gate / Python Foundry Evaluations) + `data/*.jsonl`
 - `labs/security-observability/` - Lab 5: RBAC token check + tracing
 - `labs/capstone/` - Lab 6: starter to combine everything

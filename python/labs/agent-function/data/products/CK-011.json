@@ -1,0 +1,16 @@
+{
+  "product_id": "CK-011",
+  "name": "Gingerbread Cookie",
+  "description": "Rich and nutty, a timeless favorite for peanut butter lovers.",
+  "category": "Cookies",
+  "price": 3.57,
+  "availability": "Seasonal",
+  "ingredients": "flour, butter, sugar, brown sugar, eggs, vanilla extract, baking soda, oats, raisins, cinnamon",
+  "rating": 3.6,
+  "release_date": "2024-03-04",
+  "tags": [
+    "nut-free",
+    "dairy-free"
+  ],
+  "image_url": "https://frankiesbakery.com/images/ck_011.jpg"
+}

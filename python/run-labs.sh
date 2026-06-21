@@ -8,7 +8,7 @@ set +a
 
 # Core labs that run without extra Foundry connections.
 LABS="responses streaming-responses create-agent chat-with-agent agent-function \
-      filesystem-rag multi-agent-sequential multi-agent-concurrent security-observability"
+      filesystem-rag multi-agent-sequential multi-agent-concurrent evaluations security-observability"
 
 for lab in $LABS; do
   pip install -q -r "labs/$lab/requirements.txt"
@@ -22,6 +22,7 @@ python labs/agent-function/agent-function.py
 python labs/filesystem-rag/filesystem-rag.py
 python labs/multi-agent-sequential/multi-agent-sequential.py
 python labs/multi-agent-concurrent/multi-agent-concurrent.py
+python labs/evaluations/evaluations.py --scenario dataset
 python labs/security-observability/security-observability.py
 
 echo "Grounding labs (bing-grounding, azure-ai-search, openapi-tool) and capstone"
