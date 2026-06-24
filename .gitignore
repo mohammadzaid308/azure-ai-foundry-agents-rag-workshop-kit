@@ -22,3 +22,10 @@
 .env
 **/.env
 
+
+# Private facilitator / run-day material (do NOT publish)
+FACILITATOR_GUIDE.md
+**/FACILITATOR_GUIDE.md
+*facilitator*
+*run-day*
+*RUN-DAY*
