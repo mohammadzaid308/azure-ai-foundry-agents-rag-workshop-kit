@@ -1,0 +1,5 @@
+pytest>=8.0.0
+# Optional, only for the --live Foundry-graded variant:
+azure-ai-projects>=2.0.0
+azure-identity>=1.19.0
+python-dotenv>=1.0.0

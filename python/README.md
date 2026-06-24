@@ -55,7 +55,11 @@ Creating an agent is a lab (Lab 2), not a prerequisite.
 | Lab 4: Concurrent | `multi-agent-concurrent` | Parallel agents (asyncio) plus aggregation |
 | Lab 5: Evaluations | `evaluations` | Bakery answer-quality grading (Foundry Evaluations SDK: dataset/model/agent/traces) |
 | Lab 5: Security and observability | `security-observability` | RBAC token check plus tracing |
-| Lab 6: Capstone | `capstone` | Starter to combine everything |
+| Lab 6: Build an MCP server | `mcp-server` | FastMCP bakery server + Foundry hosted MCP tool (runs offline) |
+| Lab 6: Evaluations as tests | `evaluations-tests` | pytest quality + adversarial gate for CI (runs offline) |
+| Lab 6: Guardrails | `guardrails` | Prompt-injection / PII / banned-topic pipeline + optional Content Safety (runs offline) |
+| Lab 6: Telemetry | `telemetry` | OpenTelemetry GenAI tracing + token metrics (console offline / App Insights) |
+| Lab 7: Capstone | `capstone` | Starter to combine everything |
 
 > Grounding labs (Lab 3) need Foundry connections. Create the Bing / Azure AI
 > Search connections in your project and set the matching env vars before running.

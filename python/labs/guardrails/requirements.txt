@@ -1,0 +1,6 @@
+# Core lab is pure-Python and runs offline.
+pytest>=8.0.0
+# Optional: enable real Prompt Shields + text moderation
+azure-ai-contentsafety>=1.0.0
+azure-identity>=1.19.0
+python-dotenv>=1.0.0

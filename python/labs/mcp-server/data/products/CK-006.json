@@ -1,0 +1,17 @@
+{
+  "product_id": "CK-006",
+  "name": "Chocolate Chip Cookie",
+  "description": "Buttery cookies packed with crunchy macadamia nuts.",
+  "category": "Cookies",
+  "price": 6.73,
+  "availability": "In Stock",
+  "ingredients": "flour, butter, sugar, brown sugar, eggs, vanilla extract, baking soda, oats, raisins, cinnamon",
+  "rating": 4.4,
+  "release_date": "2024-03-05",
+  "tags": [
+    "vegan",
+    "classic",
+    "new-arrival"
+  ],
+  "image_url": "https://frankiesbakery.com/images/ck_006.jpg"
+}

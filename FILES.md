@@ -29,4 +29,8 @@
 - `labs/multi-agent-concurrent/` - Lab 4: parallel agents + aggregation
 - `labs/evaluations/` - Lab 5: bakery answer-quality grading (offline .NET F1 gate / Python Foundry Evaluations) + `data/*.jsonl`
 - `labs/security-observability/` - Lab 5: RBAC token check + tracing
-- `labs/capstone/` - Lab 6: starter to combine everything
+- `labs/mcp-server/` - Lab 6 (Python): FastMCP bakery server + Foundry hosted MCP tool, `data/products` catalog, offline demo + tests
+- `labs/evaluations-tests/` - Lab 6 (Python): pytest quality + adversarial gate, `data/*.jsonl`
+- `labs/guardrails/` - Lab 6 (Python): prompt-injection / PII / banned-topic pipeline + optional Content Safety
+- `labs/telemetry/` - Lab 6 (Python): OpenTelemetry GenAI tracing + token metrics
+- `labs/capstone/` - Lab 7: starter to combine everything

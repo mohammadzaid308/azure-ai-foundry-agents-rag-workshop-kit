@@ -1,0 +1,15 @@
+{
+  "product_id": "CK-014",
+  "name": "Snickerdoodle",
+  "description": "Buttery cookies packed with crunchy macadamia nuts.",
+  "category": "Cookies",
+  "price": 3.3,
+  "availability": "Seasonal",
+  "ingredients": "flour, butter, sugar, brown sugar, eggs, vanilla extract, baking soda, chocolate chips",
+  "rating": 3.7,
+  "release_date": "2024-04-07",
+  "tags": [
+    "seasonal"
+  ],
+  "image_url": "https://frankiesbakery.com/images/ck_014.jpg"
+}

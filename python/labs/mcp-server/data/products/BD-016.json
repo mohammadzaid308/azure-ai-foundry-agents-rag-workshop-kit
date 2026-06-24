@@ -1,0 +1,16 @@
+{
+  "product_id": "BD-016",
+  "name": "Sourdough Loaf",
+  "description": "Artisan sourdough with a crispy crust and chewy interior.",
+  "category": "Bread",
+  "price": 12.19,
+  "availability": "Out of Stock",
+  "ingredients": "whole wheat flour, rye flour, oats, flax seeds, water, salt, yeast",
+  "rating": 4,
+  "release_date": "2024-05-01",
+  "tags": [
+    "best-seller",
+    "vegan"
+  ],
+  "image_url": "https://frankiesbakery.com/images/bd_016.jpg"
+}

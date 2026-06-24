@@ -18,7 +18,8 @@ and creating an agent is a workshop lab (Lab 2), not a prerequisite.
 | Lab 3 | `bing-grounding`, `azure-ai-search`, `openapi-tool` | Grounding with Bing, AI Search, OpenAPI |
 | Lab 4 | `multi-agent-sequential`, `multi-agent-concurrent` | Multi-agent orchestration (Frankie's Bakery support pipeline) |
 | Lab 5 | `evaluations`, `security-observability` | Quality gates (offline + Foundry Evaluations), RBAC checks + tracing |
-| Lab 6 | `capstone` | Combine everything |
+| Lab 6 (Python) | `mcp-server`, `evaluations-tests`, `guardrails`, `telemetry` | Build an MCP server, evals-as-CI-tests, guardrails, OpenTelemetry tracing (all run offline) |
+| Lab 7 | `capstone` | Combine everything |
 
 > The agent labs use a shared **Frankie's Bakery** / **GiftBot** scenario: a product
 > catalog (`agent-function`), a family gift corpus (`filesystem-rag`), a bakery
@@ -110,7 +111,7 @@ so each person needs an Azure RBAC role on the **Foundry project**.
 2. Lab 1 + Lab 2 (90 min)
 3. Lab 3 grounding (60 min)
 4. Lab 4 multi-agent (60 min)
-5. Lab 5 + Lab 6 capstone (60 min)
+5. Lab 5 + Lab 6 add-ons (MCP / evals-as-tests / guardrails / telemetry) + Lab 7 capstone (60 min)
 6. Wrap-up and troubleshooting (30 min)
 
 ## Repository files
