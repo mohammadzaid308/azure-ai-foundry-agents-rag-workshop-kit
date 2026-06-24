@@ -27,7 +27,7 @@ agent = project.agents.create_version(
 print(f"Agent created (id: {agent.id}, name: {agent.name}, version: {agent.version})")
 
 # ──────────────────────────────────────────────────────────────────────────
-# 👁  PORTAL OBSERVATION
+# PORTAL OBSERVATION
 #   Microsoft Foundry portal (https://ai.azure.com) → "Agents" (classic) /
 #   "Build → Agents" (new Foundry). Find the agent by FOUNDRY_AGENT_NAME and
 #   note:
@@ -40,7 +40,7 @@ print(f"Agent created (id: {agent.id}, name: {agent.name}, version: {agent.versi
 # ──────────────────────────────────────────────────────────────────────────
 
 # ──────────────────────────────────────────────────────────────────────────
-# 🏋  CHALLENGE
+# CHALLENGE
 #
 #   A PromptAgentDefinition can also accept a `temperature` parameter
 #   and a `top_p` parameter to control creativity.

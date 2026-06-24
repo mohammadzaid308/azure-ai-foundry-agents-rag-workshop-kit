@@ -133,7 +133,7 @@ if __name__ == "__main__":
 
 
 # ──────────────────────────────────────────────────────────────────────────
-# 👁  PORTAL OBSERVATION (Azure AI Content Safety path)
+# PORTAL OBSERVATION (Azure AI Content Safety path)
 #   If CONTENT_SAFETY_ENDPOINT is set:
 #     • Azure portal → your Content Safety resource → Monitoring → Metrics:
 #       "Total Calls" / "Blocked" counters increment as you run.
@@ -145,7 +145,7 @@ if __name__ == "__main__":
 # ──────────────────────────────────────────────────────────────────────────
 
 # ──────────────────────────────────────────────────────────────────────────
-# 🏋  CHALLENGE  — Add a "rate limiter" guardrail
+# CHALLENGE  — Add a "rate limiter" guardrail
 #
 #   A production guardrail also prevents abuse (too many requests).
 #   Add a simple token-bucket rate limiter:

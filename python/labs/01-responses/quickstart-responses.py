@@ -23,7 +23,7 @@ response = openai.responses.create(
 print(f"Response output: {response.output_text}")
 
 # ──────────────────────────────────────────────────────────────────────────
-# 👁  PORTAL OBSERVATION
+# PORTAL OBSERVATION
 #   This is a DIRECT model call (Responses API) - it does NOT create an agent,
 #   so nothing appears on the Agents page. To observe it in the Microsoft
 #   Foundry portal (https://ai.azure.com):
@@ -39,7 +39,7 @@ print(f"Response output: {response.output_text}")
 # ──────────────────────────────────────────────────────────────────────────
 
 # ──────────────────────────────────────────────────────────────────────────
-# 🏋  CHALLENGE  (complete the code, then re-run)
+# CHALLENGE  (complete the code, then re-run)
 #
 #   The agent currently asks one hard-coded question.
 #   Add a second responses.create call that:

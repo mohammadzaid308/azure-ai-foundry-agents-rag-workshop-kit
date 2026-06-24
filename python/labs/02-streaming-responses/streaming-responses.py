@@ -30,7 +30,7 @@ print()
 
 
 # ──────────────────────────────────────────────────────────────────────────
-# 👁  PORTAL OBSERVATION
+# PORTAL OBSERVATION
 #   Like Lab 1 this is a direct model call (no agent), so it won't show on the
 #   Agents page. Watch usage under "Models + endpoints" (classic) /
 #   "Build → Models" (new Foundry) → your deployment → Metrics, or connect
@@ -40,7 +40,7 @@ print()
 # ──────────────────────────────────────────────────────────────────────────
 
 # ──────────────────────────────────────────────────────────────────────────
-# 🏋  CHALLENGE
+# CHALLENGE
 #
 #   Measure time-to-first-token yourself:
 #     1. Import `time` at the top.

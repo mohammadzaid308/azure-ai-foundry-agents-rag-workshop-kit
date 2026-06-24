@@ -93,7 +93,7 @@ if __name__ == "__main__":
 
 
 # ──────────────────────────────────────────────────────────────────────────
-# 👁  PORTAL OBSERVATION (live Foundry path only)
+# PORTAL OBSERVATION (live Foundry path only)
 #   After running the Foundry path (not --offline):
 #     Microsoft Foundry portal → "Agents" → open <agent> → "Playground".
 #     Ask: "Do you have any seasonal bread?"
@@ -106,7 +106,7 @@ if __name__ == "__main__":
 # ──────────────────────────────────────────────────────────────────────────
 
 # ──────────────────────────────────────────────────────────────────────────
-# 🏋  CHALLENGE  — Add a "get_recommendations" tool
+# CHALLENGE  — Add a "get_recommendations" tool
 #
 #   Extend bakery_mcp_server.py with a new @mcp.tool() function:
 #

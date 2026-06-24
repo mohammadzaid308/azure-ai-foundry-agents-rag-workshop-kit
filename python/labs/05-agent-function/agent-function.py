@@ -122,7 +122,7 @@ print(response.output_text)
 
 
 # ──────────────────────────────────────────────────────────────────────────
-# 👁  PORTAL OBSERVATION
+# PORTAL OBSERVATION
 #   IMPORTANT: this lab resolves tool calls in a CLIENT-SIDE loop against a
 #   direct model call - it does NOT create an agent, so there is no Agents-page
 #   entry and no server-side tool-call trace. To watch tool calls server-side:
@@ -134,7 +134,7 @@ print(response.output_text)
 # ──────────────────────────────────────────────────────────────────────────
 
 # ──────────────────────────────────────────────────────────────────────────
-# 🏋  CHALLENGE  — Add a "get_order_history" function tool
+# CHALLENGE  — Add a "get_order_history" function tool
 #
 #   The agent currently calls list_products / get_product / place_order.
 #   Add a new Python function `get_order_status(order_id: str) -> dict`

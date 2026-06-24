@@ -14,5 +14,6 @@
 
     <ItemGroup>
         <None Update="workflow.yaml" CopyToOutputDirectory="PreserveNewest" />
+        <None Include="data/**/*" CopyToOutputDirectory="PreserveNewest" />
     </ItemGroup>
 </Project>

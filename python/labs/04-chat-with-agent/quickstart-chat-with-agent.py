@@ -36,7 +36,7 @@ print(response.output_text)
 
 
 # ──────────────────────────────────────────────────────────────────────────
-# 👁  PORTAL OBSERVATION
+# PORTAL OBSERVATION
 #   Microsoft Foundry portal → "Agents" → open the agent referenced by
 #   AGENT_NAME → "Playground". Use the thread / Thread logs view to inspect
 #   the conversation: both turns (country name + capital city) live in ONE
@@ -47,7 +47,7 @@ print(response.output_text)
 # ──────────────────────────────────────────────────────────────────────────
 
 # ──────────────────────────────────────────────────────────────────────────
-# 🏋  CHALLENGE  — Add a third turn + measure context growth
+# CHALLENGE  — Add a third turn + measure context growth
 #
 #   Add a third openai.responses.create call to the same conversation:
 #     input="What language do people speak there, and is it an EU member?"

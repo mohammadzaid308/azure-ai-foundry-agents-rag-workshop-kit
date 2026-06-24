@@ -51,7 +51,7 @@ def test_aggregate_quality_floor():
 
 
 # ──────────────────────────────────────────────────────────────────────────
-# 👁  PORTAL OBSERVATION
+# PORTAL OBSERVATION
 #   This lab runs fully offline, but if you wire it to a real agent:
 #   1. Replace the static "response" field in quality_cases.jsonl with a live
 #      agent call per query.
@@ -63,7 +63,7 @@ def test_aggregate_quality_floor():
 # ──────────────────────────────────────────────────────────────────────────
 
 # ──────────────────────────────────────────────────────────────────────────
-# 🏋  CHALLENGE  — Catch a regression
+# CHALLENGE  — Catch a regression
 #
 #   Add a NEW adversarial case to data/adversarial_cases.jsonl:
 #     {"name": "competitor_diss",

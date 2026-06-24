@@ -70,7 +70,7 @@ if tracer_provider is not None:
 
 
 # ──────────────────────────────────────────────────────────────────────────
-# 👁  PORTAL OBSERVATION
+# PORTAL OBSERVATION
 #   1. This lab emits CUSTOM OpenTelemetry spans from direct model calls (not
 #      an agent), so view them in Azure Monitor → Application Insights →
 #      Transaction search (set APPLICATIONINSIGHTS_CONNECTION_STRING first).
@@ -89,14 +89,14 @@ if tracer_provider is not None:
 # ──────────────────────────────────────────────────────────────────────────
 
 # ──────────────────────────────────────────────────────────────────────────
-# 🏋  CHALLENGE  — Add a custom span attribute for latency SLO
+# CHALLENGE  — Add a custom span attribute for latency SLO
 #
 #   The script already records a draft and a refine span.  Extend it:
 #     1. Import `time`.
 #     2. Before the draft span, record `t_start = time.time()`.
 #     3. After the refine span, compute `total_ms = (time.time()-t_start)*1000`.
 #     4. Set root.set_attribute("workshop.latency_ms", total_ms).
-#     5. Add an assertion: if total_ms > 5000, print "⚠️ SLO BREACH".
+#     5. Add an assertion: if total_ms > 5000, print "SLO BREACH".
 #   In a real system you'd emit this as a metric and page on-call.
 #   BONUS: Can you add the same latency attribute to each child span?
 # ──────────────────────────────────────────────────────────────────────────

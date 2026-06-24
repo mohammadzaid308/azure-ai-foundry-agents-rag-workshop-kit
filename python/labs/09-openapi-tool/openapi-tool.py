@@ -50,7 +50,7 @@ print(response.output_text)
 
 
 # ──────────────────────────────────────────────────────────────────────────
-# 👁  PORTAL OBSERVATION
+# PORTAL OBSERVATION
 #   Microsoft Foundry portal → "Agents" → open this agent → "Playground" →
 #   ask a weather question. Expand "Show details" (and the agent's "Traces"
 #   tab) to see:
@@ -62,7 +62,7 @@ print(response.output_text)
 # ──────────────────────────────────────────────────────────────────────────
 
 # ──────────────────────────────────────────────────────────────────────────
-# 🏋  CHALLENGE  — Add a second OpenAPI tool
+# CHALLENGE  — Add a second OpenAPI tool
 #
 #   A tiny free API: https://dog.ceo/api/breeds/list/all
 #   1. Write a minimal OpenAPI 3.0 JSON spec for GET /api/breeds/list/all

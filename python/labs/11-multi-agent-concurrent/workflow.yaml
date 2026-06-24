@@ -1,38 +1,96 @@
-# Customer-support escalation workflow (CSDL).
-# One trigger (OnConversationStart) routes the complaint through the three
-# specialist agents and then the supervisor. Because they share the
-# conversation, the supervisor sees every specialist's analysis.
+# Frankie's Bakery FAN-OUT / FAN-IN workflow (CSDL).
 #
-# NOTE: CSDL workflows execute their actions in order, so this deployed
-# workflow runs the specialists sequentially. The lab's client-side fallback
-# (asyncio.gather) is what demonstrates *true* concurrent fan-out. Deploying
-# the workflow agent makes the escalation flow visible in the Foundry portal.
+# One trigger (OnConversationStart) sends the SAME ticket to all four
+# department specialists, then bakery-synthesizer merges their answers into one
+# customer reply:
+#
+#     ticket -> menu -+
+#               orders|
+#           complaints+--> bakery-synthesizer -> reply
+#               hours-+
+#
+# IMPORTANT - declarative CSDL has no parallel construct: actions execute in
+# order, so this DEPLOYED workflow invokes the four specialists sequentially.
+# It exists so the fan-out/fan-in SHAPE is visible in the Foundry portal. The
+# genuinely concurrent fan-out is the client-side asyncio.gather run in
+# multi-agent-concurrent.py. The synthesizer reads each specialist's response
+# object, which is the declarative form of "fan-in".
 kind: Workflow
 trigger:
   kind: OnConversationStart
-  id: support_escalation_workflow
+  id: bakery_concurrent_workflow
   actions:
+    - kind: SetVariable
+      id: set_question
+      variable: Local.question
+      value: =System.LastMessage.Text
+    - kind: SetVariable
+      id: set_user_message
+      variable: Local.UserMessage
+      value: =UserMessage(System.LastMessage.Text)
+
+    # Fan-out: every department analyzes the same ticket. autoSend:false keeps
+    # the intermediate analyses out of the customer-facing chat.
     - kind: InvokeAzureAgent
-      id: invoke_sentiment
-      displayName: Sentiment
-      conversationId: =System.ConversationId
+      id: invoke_menu
+      displayName: Menu specialist
       agent:
-        name: support-sentiment
+        name: bakery-menu
+      conversationId: =System.ConversationId
+      input:
+        messages: =Local.UserMessage
+      output:
+        autoSend: false
+        responseObject: Local.MenuResponse
     - kind: InvokeAzureAgent
-      id: invoke_technical
-      displayName: Technical
-      conversationId: =System.ConversationId
+      id: invoke_orders
+      displayName: Orders specialist
       agent:
-        name: support-technical
+        name: bakery-orders
+      conversationId: =System.ConversationId
+      input:
+        messages: =Local.UserMessage
+      output:
+        autoSend: false
+        responseObject: Local.OrdersResponse
     - kind: InvokeAzureAgent
-      id: invoke_billing
-      displayName: Billing
-      conversationId: =System.ConversationId
+      id: invoke_complaints
+      displayName: Complaints specialist
       agent:
-        name: support-billing
+        name: bakery-complaints
+      conversationId: =System.ConversationId
+      input:
+        messages: =Local.UserMessage
+      output:
+        autoSend: false
+        responseObject: Local.ComplaintsResponse
     - kind: InvokeAzureAgent
-      id: invoke_supervisor
-      displayName: Supervisor reply
-      conversationId: =System.ConversationId
+      id: invoke_hours
+      displayName: Hours specialist
       agent:
-        name: support-supervisor
+        name: bakery-hours
+      conversationId: =System.ConversationId
+      input:
+        messages: =Local.UserMessage
+      output:
+        autoSend: false
+        responseObject: Local.HoursResponse
+
+    # Fan-in: synthesizer merges all four department answers into one reply.
+    - kind: SetVariable
+      id: set_synth_input
+      variable: Local.SynthesizerInput
+      value: '="Customer question: " & Local.question & Char(10) & "Menu: " & Local.MenuResponse.answer & Char(10) & "Orders: " & Local.OrdersResponse.answer & Char(10) & "Complaints: " & Local.ComplaintsResponse.answer & Char(10) & "Hours: " & Local.HoursResponse.answer'
+    - kind: InvokeAzureAgent
+      id: invoke_synthesizer
+      displayName: Customer reply
+      agent:
+        name: bakery-synthesizer
+      conversationId: =System.ConversationId
+      input:
+        messages: =Local.SynthesizerInput
+      output:
+        autoSend: true
+id: ""
+name: BakeryConcurrentFanOut
+description: Bakery fan-out/fan-in - four department specialists then a synthesizer.

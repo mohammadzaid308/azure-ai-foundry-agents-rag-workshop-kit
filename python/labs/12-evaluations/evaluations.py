@@ -227,7 +227,7 @@ if __name__ == "__main__":
 
 
 # ──────────────────────────────────────────────────────────────────────────
-# 👁  PORTAL OBSERVATIONS (after running --scenario dataset)
+# PORTAL OBSERVATIONS (after running --scenario dataset)
 #
 #   Microsoft Foundry portal → "Evaluation" (classic) / "Build → Evaluations"
 #   (new Foundry) → open the run that was just created. The run-details page
@@ -240,7 +240,7 @@ if __name__ == "__main__":
 # ──────────────────────────────────────────────────────────────────────────
 
 # ──────────────────────────────────────────────────────────────────────────
-# 🏋  CHALLENGE  — Add a custom "tone" evaluator
+# CHALLENGE  — Add a custom "tone" evaluator
 #
 #   Foundry eval runs support custom evaluators as Python functions.
 #   Add a new grader that checks whether an answer is "friendly"

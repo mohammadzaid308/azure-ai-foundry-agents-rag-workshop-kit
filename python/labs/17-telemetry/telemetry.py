@@ -95,7 +95,7 @@ if __name__ == "__main__":
 
 
 # ──────────────────────────────────────────────────────────────────────────
-# 👁  PORTAL OBSERVATION (Azure Monitor path)
+# PORTAL OBSERVATION (Azure Monitor path)
 #   After setting APPLICATIONINSIGHTS_CONNECTION_STRING and re-running:
 #
 #   1. Azure portal → Application Insights → Transaction search. Search
@@ -113,7 +113,7 @@ if __name__ == "__main__":
 # ──────────────────────────────────────────────────────────────────────────
 
 # ──────────────────────────────────────────────────────────────────────────
-# 🏋  CHALLENGE  — Add a latency histogram metric
+# CHALLENGE  — Add a latency histogram metric
 #
 #   The lab records a token counter. Add a latency histogram:
 #     1. Create:  latency_histo = meter.create_histogram(

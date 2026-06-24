@@ -1,7 +1,7 @@
 # .NET Track
 
 > [!IMPORTANT]
-> **⚠️ Workshop / Learning Code — Not Production-Grade**
+> **Workshop / Learning Code — Not Production-Grade**
 > This repository is teaching material for a hands-on workshop. Samples are written
 > for **clarity**, not robustness. They intentionally omit production concerns such as
 > hardened error handling, retries, input validation, secrets management, rate limiting,

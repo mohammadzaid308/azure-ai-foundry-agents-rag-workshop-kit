@@ -1,30 +1,136 @@
-# Frankie's Bakery support workflow (CSDL).
-# One trigger (OnConversationStart) fans the conversation through the three
-# bakery support agents in order: intake -> specialist -> synthesizer. Because
-# they share the conversation, each agent sees the previous agent's output.
+# Frankie's Bakery support workflow (CSDL) - SEQUENTIAL with CONDITIONAL routing.
 #
-# Deploying this as a workflow agent makes the workflow itself show up in the
-# Foundry portal (Agents / Workflows), not just the individual agents.
+# This is a REAL branching workflow, not a fixed chain:
+#   1. bakery-orchestrator classifies the ticket and emits a route.
+#   2. A ConditionGroup (switch/case) invokes EXACTLY ONE department agent
+#      (menu | orders | complaints | hours). Anything else hits elseActions.
+#   3. If a department handled it, bakery-synthesizer writes the customer reply.
+#
+# ConditionGroup is the declarative form of if/elif/else: the first matching
+# condition wins and the rest are skipped. Deploying this as a workflow agent
+# renders the branching graph in the Foundry portal (Agents / Workflows).
 kind: Workflow
 trigger:
   kind: OnConversationStart
   id: bakery_support_workflow
   actions:
+    - kind: SetVariable
+      id: set_question
+      variable: Local.question
+      value: =System.LastMessage.Text
+    - kind: SetVariable
+      id: set_user_message
+      variable: Local.UserMessage
+      value: =UserMessage(System.LastMessage.Text)
+
+    # Step 1 - classify. autoSend:false keeps the routing JSON out of the chat.
     - kind: InvokeAzureAgent
-      id: invoke_intake
-      displayName: Intake
-      conversationId: =System.ConversationId
+      id: invoke_orchestrator
+      displayName: Orchestrator (route)
       agent:
-        name: bakery-intake
-    - kind: InvokeAzureAgent
-      id: invoke_specialist
-      displayName: Specialist
+        name: bakery-orchestrator
       conversationId: =System.ConversationId
-      agent:
-        name: bakery-specialist
-    - kind: InvokeAzureAgent
-      id: invoke_synthesizer
-      displayName: Customer reply
-      conversationId: =System.ConversationId
-      agent:
-        name: bakery-synthesizer
+      input:
+        messages: =Local.UserMessage
+      output:
+        autoSend: false
+        responseObject: Local.OrchestratorResponse
+    - kind: SetVariable
+      id: set_route
+      variable: Local.Route
+      value: =Lower(Local.OrchestratorResponse.route)
+
+    # Step 2 - branch to exactly ONE specialist (if / elif / else).
+    - kind: ConditionGroup
+      id: route_branch
+      displayName: Route to department
+      conditions:
+        - id: if-menu
+          condition: =Local.Route = "menu"
+          actions:
+            - kind: InvokeAzureAgent
+              id: invoke_menu
+              displayName: Menu specialist
+              agent:
+                name: bakery-menu
+              conversationId: =System.ConversationId
+              input:
+                messages: =Local.UserMessage
+              output:
+                autoSend: false
+                responseObject: Local.SpecialistResponse
+        - id: if-orders
+          condition: =Local.Route = "orders"
+          actions:
+            - kind: InvokeAzureAgent
+              id: invoke_orders
+              displayName: Orders specialist
+              agent:
+                name: bakery-orders
+              conversationId: =System.ConversationId
+              input:
+                messages: =Local.UserMessage
+              output:
+                autoSend: false
+                responseObject: Local.SpecialistResponse
+        - id: if-complaints
+          condition: =Local.Route = "complaints"
+          actions:
+            - kind: InvokeAzureAgent
+              id: invoke_complaints
+              displayName: Complaints specialist
+              agent:
+                name: bakery-complaints
+              conversationId: =System.ConversationId
+              input:
+                messages: =Local.UserMessage
+              output:
+                autoSend: false
+                responseObject: Local.SpecialistResponse
+        - id: if-hours
+          condition: =Local.Route = "hours"
+          actions:
+            - kind: InvokeAzureAgent
+              id: invoke_hours
+              displayName: Hours specialist
+              agent:
+                name: bakery-hours
+              conversationId: =System.ConversationId
+              input:
+                messages: =Local.UserMessage
+              output:
+                autoSend: false
+                responseObject: Local.SpecialistResponse
+      elseActions:
+        - kind: SendActivity
+          id: out_of_scope
+          activity: |-
+            That question is outside what I can help with at Frankie's Bakery.
+            I can help with menu items and allergens, your orders, complaints,
+            and store hours - try one of those and I'll get you the right answer.
+
+    # Step 3 - synthesize a warm reply (only when a department handled it).
+    - kind: ConditionGroup
+      id: synthesize_branch
+      displayName: Synthesize reply
+      conditions:
+        - id: if-handled
+          condition: =Local.Route <> "else"
+          actions:
+            - kind: SetVariable
+              id: set_synth_input
+              variable: Local.SynthesizerInput
+              value: '="Customer question: " & Local.question & Char(10) & "Specialist answer: " & Local.SpecialistResponse.answer'
+            - kind: InvokeAzureAgent
+              id: invoke_synthesizer
+              displayName: Customer reply
+              agent:
+                name: bakery-synthesizer
+              conversationId: =System.ConversationId
+              input:
+                messages: =Local.SynthesizerInput
+              output:
+                autoSend: true
+id: ""
+name: BakerySupportConditional
+description: Sequential bakery support with conditional department routing.

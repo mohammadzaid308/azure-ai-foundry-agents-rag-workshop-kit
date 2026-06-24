@@ -71,7 +71,7 @@ if __name__ == "__main__":
 
 
 # ──────────────────────────────────────────────────────────────────────────
-# 👁  PORTAL OBSERVATION
+# PORTAL OBSERVATION
 #   Retrieval happens LOCALLY here; only the grounded prompt is sent to the
 #   model (no agent, no server-side tool call), so nothing shows on the Agents
 #   page. Instead watch input-token growth: the retrieved chunks are embedded
@@ -83,7 +83,7 @@ if __name__ == "__main__":
 # ──────────────────────────────────────────────────────────────────────────
 
 # ──────────────────────────────────────────────────────────────────────────
-# 🏋  CHALLENGE  — Tune the vector search
+# CHALLENGE  — Tune the vector search
 #
 #   FileSearchTool accepts a `max_num_results` parameter (default 10).
 #   1. Change it to 3 and run the same query. Does the answer change?
