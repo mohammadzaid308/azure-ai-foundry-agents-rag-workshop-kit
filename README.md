@@ -13,18 +13,18 @@ and creating an agent is a workshop lab (Lab 2), not a prerequisite.
 
 | Agenda | Lab folder | Focus |
 | --- | --- | --- |
-| Lab 1 | `responses`, `streaming-responses` | First model call + token streaming |
-| Lab 2 | `create-agent`, `chat-with-agent`, `agent-function`, `filesystem-rag` | Build/chat with agents, bakery storefront function tools, GiftBot file RAG |
-| Lab 3 | `bing-grounding`, `azure-ai-search`, `openapi-tool` | Grounding with Bing, AI Search, OpenAPI |
-| Lab 4 | `multi-agent-sequential`, `multi-agent-concurrent` | Multi-agent orchestration (Frankie's Bakery support pipeline) |
-| Lab 5 | `evaluations`, `security-observability` | Quality gates (offline + Foundry Evaluations), RBAC checks + tracing |
-| Lab 6 (Python) | `mcp-server`, `evaluations-tests`, `guardrails`, `telemetry` | Build an MCP server, evals-as-CI-tests, guardrails, OpenTelemetry tracing (all run offline) |
-| Lab 7 | `capstone` | Combine everything |
+| Lab 1 | `01-responses`, `02-streaming-responses` | First model call + token streaming |
+| Lab 2 | `03-create-agent`, `04-chat-with-agent`, `05-agent-function`, `06-filesystem-rag` | Build/chat with agents, bakery storefront function tools, GiftBot file RAG |
+| Lab 3 | `07-bing-grounding`, `08-azure-ai-search`, `09-openapi-tool` | Grounding with Bing, AI Search, OpenAPI |
+| Lab 4 | `10-multi-agent-sequential`, `11-multi-agent-concurrent` | Multi-agent orchestration (Frankie's Bakery support pipeline) |
+| Lab 5 | `12-evaluations`, `13-security-observability` | Quality gates (offline + Foundry Evaluations), RBAC checks + tracing |
+| Lab 6 (Python) | `14-mcp-server`, `15-evaluations-tests`, `16-guardrails`, `17-telemetry` | Build an MCP server, evals-as-CI-tests, guardrails, OpenTelemetry tracing (all run offline) |
+| Lab 7 | `14-capstone` (.NET) / `18-capstone` (Python) | Combine everything |
 
 > The agent labs use a shared **Frankie's Bakery** / **GiftBot** scenario: a product
-> catalog (`agent-function`), a family gift corpus (`filesystem-rag`), a bakery
-> support pipeline (`multi-agent-sequential`), and a bakery answer-quality dataset
-> (`evaluations`). All data ships in each lab's `data/` folder so tool logic,
+> catalog (`05-agent-function`), a family gift corpus (`06-filesystem-rag`), a bakery
+> support pipeline (`10-multi-agent-sequential`), and a bakery answer-quality dataset
+> (`12-evaluations`). All data ships in each lab's `data/` folder so tool logic,
 > retrieval, and offline evaluation run with **no Azure calls**; only model/agent
 > requests reach Foundry.
 

@@ -38,20 +38,20 @@ lab (Lab 2), not a prerequisite.
 
 | Agenda | Lab folder | What you build |
 | --- | --- | --- |
-| Lab 1: SDK first steps | `responses` | First model call with the Responses API |
-| Lab 1: Streaming | `streaming-responses` | Token streaming with `CreateResponseStreamingAsync` |
-| Lab 2: Build an agent | `create-agent` | Create an agent version with `AgentAdministrationClient` |
-| Lab 2: Chat with an agent | `chat-with-agent` | Multi-turn chat over a conversation |
-| Lab 2: Function calling | `agent-function` | Bakery storefront tools (list/get/place order) over local product catalog |
-| Lab 2: File RAG | `filesystem-rag` | GiftBot retrieval over local family gift corpus (`data/gift`) |
-| Lab 3: Bing grounding | `bing-grounding` | Ground answers in live web results |
-| Lab 3: Azure AI Search | `azure-ai-search` | Ground answers in a search index |
-| Lab 3: OpenAPI tool | `openapi-tool` | Call an external API via OpenAPI |
-| Lab 4: Sequential | `multi-agent-sequential` | Frankie's Bakery support pipeline (intake to specialist to synthesizer) |
-| Lab 4: Concurrent | `multi-agent-concurrent` | Parallel agents plus aggregation |
-| Lab 5: Evaluations | `evaluations` | Bakery answer-quality grading (offline token-F1 gate, no Azure) |
-| Lab 5: Security and observability | `security-observability` | RBAC token check plus tracing |
-| Lab 6: Capstone | `capstone` | Starter to combine everything |
+| Lab 1: SDK first steps | `01-responses` | First model call with the Responses API |
+| Lab 1: Streaming | `02-streaming-responses` | Token streaming with `CreateResponseStreamingAsync` |
+| Lab 2: Build an agent | `03-create-agent` | Create an agent version with `AgentAdministrationClient` |
+| Lab 2: Chat with an agent | `04-chat-with-agent` | Multi-turn chat over a conversation |
+| Lab 2: Function calling | `05-agent-function` | Bakery storefront tools (list/get/place order) over local product catalog |
+| Lab 2: File RAG | `06-filesystem-rag` | GiftBot retrieval over local family gift corpus (`data/gift`) |
+| Lab 3: Bing grounding | `07-bing-grounding` | Ground answers in live web results |
+| Lab 3: Azure AI Search | `08-azure-ai-search` | Ground answers in a search index |
+| Lab 3: OpenAPI tool | `09-openapi-tool` | Call an external API via OpenAPI |
+| Lab 4: Sequential | `10-multi-agent-sequential` | Frankie's Bakery support pipeline (intake to specialist to synthesizer) |
+| Lab 4: Concurrent | `11-multi-agent-concurrent` | Parallel agents plus aggregation |
+| Lab 5: Evaluations | `12-evaluations` | Bakery answer-quality grading (offline token-F1 gate, no Azure) |
+| Lab 5: Security and observability | `13-security-observability` | RBAC token check plus tracing |
+| Lab 6: Capstone | `14-capstone` | Starter to combine everything |
 
 > Grounding labs (Lab 3) need Foundry connections. Create the Bing / Azure AI
 > Search connections in your project and set the matching env vars before running.

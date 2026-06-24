@@ -62,7 +62,7 @@ gate -- all wired to Azure AI Foundry."
     git clone https://github.com/mohammadzaid308/azure-ai-foundry-agents-rag-workshop-kit
     cd azure-ai-foundry-agents-rag-workshop-kit/python
     python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
-    pip install -r labs/responses/requirements.txt
+    pip install -r labs/01-responses/requirements.txt
     cp .env-template .env
     # Edit .env: fill in FOUNDRY_PROJECT_ENDPOINT and FOUNDRY_AGENT_NAME
     az login
