@@ -27,13 +27,15 @@ Console.WriteLine($"Agent created (id: {agent.Id}, name: {agent.Name}, version: 
 
 
 // ===== PORTAL OBSERVATION =====
-//   Foundry portal -> Agents. After running, find the agent by the name in
-//   FOUNDRY_AGENT_NAME. Click it and note:
+//   Microsoft Foundry portal (https://ai.azure.com) -> "Agents" (classic) /
+//   "Build -> Agents" (new Foundry). Find the agent by FOUNDRY_AGENT_NAME and
+//   note:
 //     * Version number (starts at 1; re-running increments it).
 //     * Model deployment name linked to it.
 //     * System prompt / instructions as stored server-side.
-//   Try editing the instructions in the portal, save, then re-run this lab
-//   and re-list versions - you'll see a new version entry.
+//   The agent page has tabs - Playground, Traces, Monitor, Evaluation - used in
+//   later labs. Edit the instructions in the portal and save to create a new
+//   version you can see without running code.
 //
 // ===== CHALLENGE =====
 //   A DeclarativeAgentDefinition can carry more than instructions.

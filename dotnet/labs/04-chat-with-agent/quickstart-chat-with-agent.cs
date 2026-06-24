@@ -44,11 +44,13 @@ Console.WriteLine($"Agent: {second.GetOutputText()}");
 
 
 // ===== PORTAL OBSERVATION =====
-//   Foundry portal -> Agents -> <your agent> -> "Conversations". After running,
-//   you should see the conversation here. Click it to inspect the full message
-//   history. Note how BOTH turns (country size + capital city) are stored in a
-//   single conversation thread - that shared context is why the follow-up
+//   Microsoft Foundry portal -> "Agents" -> open your agent -> "Playground".
+//   Use the thread / Thread logs view to inspect the conversation: BOTH turns
+//   (country size + capital city) live in ONE thread, which is why the follow-up
 //   "And what is its capital city?" works without repeating the country.
+//   Open the agent's "Traces" tab to see a span per turn (Traces are GA for
+//   prompt agents). The old standalone "Conversations" page is gone - threads
+//   are viewed from the agent's Playground / Traces tabs.
 //
 // ===== CHALLENGE  - Add a third turn + inspect the thread =====
 //   1. Add a THIRD CreateResponseAsync call on the same `responses` client:

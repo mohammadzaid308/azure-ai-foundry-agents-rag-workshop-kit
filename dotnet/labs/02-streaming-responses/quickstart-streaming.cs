@@ -28,11 +28,12 @@ Console.WriteLine();
 
 
 // ===== PORTAL OBSERVATION =====
-//   Foundry portal -> Monitoring -> Traces. Streaming calls appear as a single
-//   trace entry; the output-text delta events are collapsed into one span.
-//   Compare the latency here vs the non-streaming call in the responses lab -
-//   streaming usually shows a LOWER time-to-first-byte but roughly the same
-//   total time.
+//   Like the responses lab this is a direct model call (no agent), so it won't
+//   show on the Agents page. Watch usage under "Models + endpoints" (classic) /
+//   "Build -> Models" (new Foundry) -> your deployment -> Metrics, or connect
+//   Application Insights (Lab 13) to capture the span under "Tracing".
+//   The streaming win is client-side: note the LOWER time-to-first-token here vs
+//   the non-streaming responses call - total time is roughly the same.
 //
 // ===== CHALLENGE =====
 //   Measure time-to-first-token (TTFT) yourself:

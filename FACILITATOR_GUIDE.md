@@ -8,7 +8,7 @@
 ## Pre-workshop checklist (day before)
 
 - [ ] Provision Foundry projects for each attendee (or one shared project with individual Resource Group assignments).
-- [ ] Each attendee has **Azure AI User** (or **Azure AI Project Manager**) role on the project - confirm in portal IAM.
+- [ ] Each attendee has **Foundry User** (or **Foundry Project Manager**) role on the project - confirm in Azure portal -> Access control (IAM). (These were formerly **Azure AI User** / **Azure AI Project Manager**; IDs unchanged.)
 - [ ] Deploy **gpt-4o** in the project's Model deployments.
 - [ ] Clone the public repo URL and paste it in the invite:
       https://github.com/mohammadzaid308/azure-ai-foundry-agents-rag-workshop-kit
@@ -76,9 +76,11 @@ Common blockers to watch for:
 
 ### Portal orientation (2 min live demo on your screen)
 "Let me quickly show you the Foundry portal. Three sections we visit today:
-  1. Agents -- where your agents and conversations live
-  2. Evaluation -- where your eval runs and scores appear
-  3. Monitoring -> Traces -- where every API call is traced
+  1. Agents -- where your agents live ("Agents" classic / "Build -> Agents" new Foundry);
+     conversations/threads are viewed from each agent's Playground / Traces tab
+  2. Evaluation -- eval runs + scores ("Evaluation" classic / "Build -> Evaluations" new)
+  3. Tracing -- where agent/workflow API calls are traced ("Tracing" classic /
+     "Operate -> Tracing" new Foundry), plus a per-agent "Traces" tab
 Keep the portal open in a second tab all day. Every lab has a PORTAL comment
 in the code telling you exactly what to look at after you run it."
 
@@ -96,7 +98,9 @@ Talking points while they code:
 - AIProjectClient is the entry point -- wraps credentials + endpoint.
 - get_openai_client() returns a standard OpenAI client but routed through your Foundry
   project for logging and billing.
-- Point to portal: Foundry portal -> Monitoring -> Traces -- a new entry appears after the call.
+- Note: a bare Responses call creates no agent, so it has no agent "Traces" tab. Show usage
+  under "Models + endpoints" (classic) / "Build -> Models" (new Foundry) -> deployment -> Metrics,
+  or connect App Insights (Lab 13) to see the span on the "Tracing" page.
 
 ### Challenge moment (~15 min before the block ends)
 "Open the CHALLENGE comment at the bottom of quickstart-responses.py. Add a second call that
@@ -305,7 +309,7 @@ Share with attendees before they leave:
 | Error | Likely cause | Fix |
 |-------|-------------|-----|
 | 401 Unauthorized | az login expired | az login then re-run |
-| 403 Forbidden | Missing RBAC role | Add Azure AI User role in project IAM |
+| 403 Forbidden | Missing RBAC role | Add **Foundry User** role (formerly Azure AI User) in Access control (IAM) |
 | FOUNDRY_PROJECT_ENDPOINT not found | .env not loaded | source .env or check load_dotenv() path |
 | ModuleNotFoundError | venv not active | source .venv/bin/activate |
 | AgentNotFound | Wrong FOUNDRY_AGENT_NAME | Check portal -> Agents for exact name |

@@ -28,13 +28,15 @@ print(f"Agent created (id: {agent.id}, name: {agent.name}, version: {agent.versi
 
 # ──────────────────────────────────────────────────────────────────────────
 # 👁  PORTAL OBSERVATION
-#   Foundry portal → Agents.  After running, find the agent by the name
-#   in FOUNDRY_AGENT_NAME.  Click it and note:
-#     • Version number (starts at 1; re-running increments it).
-#     • Model deployment name linked to it.
-#     • System prompt / instructions as stored server-side.
-#   Try editing the instructions in the portal, save, then re-list
-#   versions — you'll see a new version entry without running code.
+#   Microsoft Foundry portal (https://ai.azure.com) → "Agents" (classic) /
+#   "Build → Agents" (new Foundry). Find the agent by FOUNDRY_AGENT_NAME and
+#   note:
+#     • Version (starts at 1; each create_version increments it).
+#     • The linked model deployment.
+#     • The instructions stored server-side.
+#   The agent page has tabs - Playground, Traces, Monitor, Evaluation - used in
+#   later labs. Edit the instructions in the portal and save: that creates a
+#   new version you can see without running code.
 # ──────────────────────────────────────────────────────────────────────────
 
 # ──────────────────────────────────────────────────────────────────────────

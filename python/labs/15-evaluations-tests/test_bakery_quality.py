@@ -52,14 +52,14 @@ def test_aggregate_quality_floor():
 
 # ──────────────────────────────────────────────────────────────────────────
 # 👁  PORTAL OBSERVATION
-#   This lab runs fully offline, but if you connect it to a real agent:
-#   1. Replace the static "response" field in quality_cases.jsonl with a
-#      call to your live agent for each query.
-#   2. Run pytest — failing tests map directly to answers the agent got
-#      wrong in the Foundry portal's conversation history.
-#   3. Open the conversation in the portal, find the low-F1 answers,
-#      and refine the agent's system prompt.  Re-run pytest to confirm.
-#   This is the "prompt engineering → measure → iterate" loop in CI.
+#   This lab runs fully offline, but if you wire it to a real agent:
+#   1. Replace the static "response" field in quality_cases.jsonl with a live
+#      agent call per query.
+#   2. Run pytest - failing tests map to answers the agent got wrong.
+#   3. In the Microsoft Foundry portal open the agent → "Playground" (or its
+#      "Traces" tab), find the low-F1 answers, and refine the agent's
+#      instructions. Re-run pytest to confirm.
+#   This is the "prompt-engineer → measure → iterate" loop in CI.
 # ──────────────────────────────────────────────────────────────────────────
 
 # ──────────────────────────────────────────────────────────────────────────

@@ -61,11 +61,14 @@ static HashSet<string> Tokenize(string text)
 
 
 // ===== PORTAL OBSERVATION =====
-//   This lab retrieves locally and only sends the grounded prompt to Foundry.
-//   In the portal -> Monitoring -> Traces you'll see ONE model call (no tool
-//   calls). Compare the prompt size here vs the responses lab: the retrieved
-//   context is embedded in the prompt, so input_tokens are much higher. That
-//   token cost is the price of grounding - keep an eye on it.
+//   Retrieval happens LOCALLY here; only the grounded prompt is sent to the
+//   model (no agent, no server-side tool call), so nothing shows on the Agents
+//   page. Instead watch input-token growth: the retrieved context is embedded in
+//   the prompt, so input_tokens are much higher than the responses lab. See it
+//   under "Models + endpoints" (classic) / "Build -> Models" (new Foundry) ->
+//   your deployment -> Metrics (or Azure Monitor if App Insights is set, Lab 13).
+//   For SERVER-side RAG with citations, Foundry offers a managed File Search tool
+//   on agents - this lab keeps retrieval offline on purpose.
 //
 // ===== CHALLENGE  - Tune the retriever =====
 //   The retriever currently returns the top 3 files (.Take(3)).

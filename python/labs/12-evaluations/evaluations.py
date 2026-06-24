@@ -229,13 +229,14 @@ if __name__ == "__main__":
 # ──────────────────────────────────────────────────────────────────────────
 # 👁  PORTAL OBSERVATIONS (after running --scenario dataset)
 #
-#   Foundry portal → Evaluation → Evaluation runs.
-#   Find the run that was just created.  Click it to see:
+#   Microsoft Foundry portal → "Evaluation" (classic) / "Build → Evaluations"
+#   (new Foundry) → open the run that was just created. The run-details page
+#   shows:
 #     • Per-row scores (relevance / groundedness / fluency / F1).
-#     • A histogram of score distributions.
-#     • The "report URL" printed by the script is a direct deep-link here.
-#   Try the --scenario model run too and compare: which scenario has
-#   higher groundedness scores? Why?
+#     • Aggregate metrics + a pass/fail summary; you can compare runs.
+#     • The "report URL" printed by the script deep-links straight here.
+#   You can also launch evals from an agent's "Evaluation" tab or the Playground
+#   "Metrics" panel. Try --scenario model too and compare groundedness.
 # ──────────────────────────────────────────────────────────────────────────
 
 # ──────────────────────────────────────────────────────────────────────────

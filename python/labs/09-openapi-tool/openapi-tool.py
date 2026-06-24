@@ -51,13 +51,14 @@ print(response.output_text)
 
 # ──────────────────────────────────────────────────────────────────────────
 # 👁  PORTAL OBSERVATION
-#   Foundry portal → Agents → <agent> → Playground → ask a weather
-#   question.  In the "Show details" panel you can see:
-#     • The OpenAPI spec the model resolved the function from.
-#     • The exact HTTP request the model formed (URL + query params).
+#   Microsoft Foundry portal → "Agents" → open this agent → "Playground" →
+#   ask a weather question. Expand "Show details" (and the agent's "Traces"
+#   tab) to see:
+#     • The OpenAPI operation the model resolved.
+#     • The exact HTTP request it formed (URL + query params).
 #     • The raw JSON response before the model summarized it.
-#   This is the live "tool-call trace" — compare it to the function tool
-#   trace in Lab 2c to spot the difference (HTTP vs local Python call).
+#   Because this IS an agent (unlike the client-side function loop in Lab 5),
+#   the tool call runs server-side and shows up in the agent's traces.
 # ──────────────────────────────────────────────────────────────────────────
 
 # ──────────────────────────────────────────────────────────────────────────

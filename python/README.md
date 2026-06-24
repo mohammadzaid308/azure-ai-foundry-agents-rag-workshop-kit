@@ -84,5 +84,6 @@ Or run the core runnable labs end to end:
 ## Notes
 
 - Keep using the same Foundry project for all labs.
-- Participants need the **Azure AI User** role on the project.
-- Facilitators who manage project settings need **Azure AI Project Manager**.
+- Participants need the **Foundry User** role on the project (formerly **Azure AI User**).
+- Facilitators who manage project settings need **Foundry Project Manager** (formerly **Azure AI Project Manager**).
+- The role IDs/permissions are unchanged; you may still see the old names during rollout.

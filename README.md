@@ -76,28 +76,34 @@ The grounding labs need Foundry connections created in your project, plus env va
 These labs authenticate with `DefaultAzureCredential` (your `az login` identity),
 so each person needs an Azure RBAC role on the **Foundry project**.
 
-- **Azure AI User** (participants / developers)
+- **Foundry User** (participants / developers) — formerly **Azure AI User**
   - Use models, run responses, create/run agents, execute all labs
   - Assign at **project scope**
-- **Azure AI Project Manager** (facilitators / admins)
-  - Everything an Azure AI User can do, plus manage project settings, deployments,
+- **Foundry Project Manager** (facilitators / admins) — formerly **Azure AI Project Manager**
+  - Everything a Foundry User can do, plus manage project settings, deployments,
     and role assignments
   - Assign at **project scope** (or **account scope** for workshop organizers)
 
+> **Rename note:** Microsoft is rolling out new role names (Azure AI User → **Foundry
+> User**, Azure AI Project Manager → **Foundry Project Manager**). The role IDs and
+> permissions are unchanged, so the commands below use the stable role-definition IDs.
+
 ### Role assignment steps (facilitator)
 
-1. Assign **Azure AI User** to every participant at **project scope**:
+1. Assign **Foundry User** to every participant at **project scope**
+   (role-definition ID is rollout-proof; display name = "Foundry User", formerly "Azure AI User"):
    ```bash
    az role assignment create \
      --assignee "<participant-object-id-or-email>" \
-     --role "Azure AI User" \
+     --role "53ca6127-db72-4b80-b1b0-d745d6d5456d" \
      --scope "<FOUNDRY_PROJECT_RESOURCE_ID>"
    ```
-2. Assign **Azure AI Project Manager** to facilitators at **project scope** (or account scope):
+2. Assign **Foundry Project Manager** to facilitators at **project scope** (or account scope)
+   (display name = "Foundry Project Manager", formerly "Azure AI Project Manager"):
    ```bash
    az role assignment create \
      --assignee "<facilitator-object-id-or-email>" \
-     --role "Azure AI Project Manager" \
+     --role "eadc314b-1a2d-4efa-be10-5d325db5065e" \
      --scope "<FOUNDRY_PROJECT_RESOURCE_ID>"
    ```
 3. Validate access before workshop day by running one quick model call from both tracks.

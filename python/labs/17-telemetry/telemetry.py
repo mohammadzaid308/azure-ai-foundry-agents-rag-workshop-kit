@@ -98,17 +98,18 @@ if __name__ == "__main__":
 # 👁  PORTAL OBSERVATION (Azure Monitor path)
 #   After setting APPLICATIONINSIGHTS_CONNECTION_STRING and re-running:
 #
-#   1. Azure portal → Application Insights → Transaction search.
-#      Search for "chat frankies-bakery" — your span appears in <60 s.
-#      Click it to see the waterfall view with parent/child spans.
+#   1. Azure portal → Application Insights → Transaction search. Search
+#      "chat frankies-bakery" - your span appears in <60 s. Click it for the
+#      waterfall of parent/child spans.
 #
-#   2. Azure portal → App Insights → Logs → run this KQL:
+#   2. Azure portal → App Insights → Logs → run KQL:
 #        traces | where message contains "gen_ai.request.model"
 #        | project timestamp, message | order by timestamp desc
 #
-#   3. Foundry portal → Monitoring → Traces.
-#      The same spans also appear here, automatically associated with
-#      your project by the APPLICATIONINSIGHTS_CONNECTION_STRING.
+#   3. If these spans come from an AGENT they also surface on that agent's
+#      "Traces" tab and on the project "Tracing" page (classic) /
+#      "Operate → Tracing" (new Foundry). Direct model calls like this lab
+#      show only in App Insights - the old "Monitoring → Traces" page is gone.
 # ──────────────────────────────────────────────────────────────────────────
 
 # ──────────────────────────────────────────────────────────────────────────

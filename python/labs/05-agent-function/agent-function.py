@@ -123,12 +123,14 @@ print(response.output_text)
 
 # ──────────────────────────────────────────────────────────────────────────
 # 👁  PORTAL OBSERVATION
-#   Foundry portal → Agents → <agent> → Run the agent in the "Playground".
-#   Click "Show details" on a response that triggered a tool call to see:
-#     • The exact JSON arguments the model sent to the function.
-#     • The tool output that was returned.
-#     • The model's final synthesis step.
-#   This is the "tool-call trace" in the playground — bookmark it.
+#   IMPORTANT: this lab resolves tool calls in a CLIENT-SIDE loop against a
+#   direct model call - it does NOT create an agent, so there is no Agents-page
+#   entry and no server-side tool-call trace. To watch tool calls server-side:
+#     • Connect Application Insights (Lab 13) and inspect the function-call
+#       spans in Azure Monitor / the "Tracing" page.
+#     • Or attach the same functions to a real agent and use the agent
+#       Playground - Lab 9 (openapi-tool) does exactly that and shows the calls
+#       under the agent's "Traces" / "Show details" view. Compare the two.
 # ──────────────────────────────────────────────────────────────────────────
 
 # ──────────────────────────────────────────────────────────────────────────

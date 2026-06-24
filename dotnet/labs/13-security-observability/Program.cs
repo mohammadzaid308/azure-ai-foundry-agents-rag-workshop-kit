@@ -91,15 +91,18 @@ if (tracerProvider is not null)
 
 
 // ===== PORTAL OBSERVATION =====
-//   1. Foundry portal -> Monitoring -> Traces. Find the "support.request.handle"
-//      trace. Expand the child spans (foundry.responses.draft ->
-//      foundry.responses.refine) and note the "workshop.lab" and
-//      "foundry.output.length" tags set in this code.
-//   2. Azure portal -> Application Insights -> Transaction search (only if
-//      APPLICATIONINSIGHTS_CONNECTION_STRING is set). Search the same span name;
-//      you could set a KQL alert on output.length dropping below a threshold.
-//   3. Foundry portal -> Settings -> Access control (IAM). Confirm your user has
-//      "Azure AI User" or "Azure AI Project Manager". Try removing a role (undo
+//   1. This lab emits CUSTOM OpenTelemetry spans from direct model calls (not an
+//      agent), so view them in Azure Monitor -> Application Insights ->
+//      Transaction search (set APPLICATIONINSIGHTS_CONNECTION_STRING first). Find
+//      "support.request.handle" and expand the child spans
+//      (foundry.responses.draft -> foundry.responses.refine); note the
+//      "workshop.lab" and "foundry.output.length" tags. In Foundry these also
+//      surface under "Tracing" (classic) / "Operate -> Tracing" (new Foundry).
+//   2. App Insights -> Logs: set a KQL alert on output.length dropping below a
+//      threshold - a real quality signal.
+//   3. Azure portal -> your Foundry resource/project -> "Access control (IAM)".
+//      Confirm your user has "Foundry User" (formerly Azure AI User) or "Foundry
+//      Project Manager" (formerly Azure AI Project Manager). Remove a role (undo
 //      after!) and observe the 403 the next time you run.
 //
 // ===== CHALLENGE  - Add a latency SLO attribute =====

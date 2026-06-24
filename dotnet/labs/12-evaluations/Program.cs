@@ -84,10 +84,10 @@ static double TokenF1(string prediction, string reference)
 // ===== PORTAL OBSERVATION =====
 //   This .NET lab is the OFFLINE pre-flight gate (deterministic token-F1 and
 //   exact-match, no Azure calls). The managed LLM-judge evaluation runs in the
-//   Python evaluations lab. After you run that one, go to Foundry portal ->
-//   Evaluation -> Evaluation runs to see per-row relevance / groundedness /
-//   fluency scores. Mental model: run THIS cheap gate in CI first, and only
-//   pay for the LLM-judge eval when this passes.
+//   Python evaluations lab. After you run that one, go to Microsoft Foundry
+//   portal -> "Evaluation" (classic) / "Build -> Evaluations" (new Foundry) to
+//   see per-row relevance / groundedness / fluency scores. Mental model: run THIS
+//   cheap gate in CI first, and only pay for the LLM-judge eval when it passes.
 //
 // ===== CHALLENGE  - Add a custom "tone" metric =====
 //   Add a third, offline metric that scores how "friendly" each response is.

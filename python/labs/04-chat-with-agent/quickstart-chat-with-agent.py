@@ -37,11 +37,13 @@ print(response.output_text)
 
 # ──────────────────────────────────────────────────────────────────────────
 # 👁  PORTAL OBSERVATION
-#   Foundry portal → Agents → <your agent> → "Conversations".
-#   After running, you should see the conversation ID here.  Click it to
-#   inspect the full message history including the model's reasoning.
-#   Note how both turns (country name + capital city) are stored in a
-#   single conversation thread.
+#   Microsoft Foundry portal → "Agents" → open the agent referenced by
+#   AGENT_NAME → "Playground". Use the thread / Thread logs view to inspect
+#   the conversation: both turns (country name + capital city) live in ONE
+#   thread, which is why the follow-up resolves without repeating the country.
+#   Open the agent's "Traces" tab to see a span per turn (Traces are GA for
+#   prompt agents). The old standalone "Conversations" page is gone - threads
+#   are viewed from the agent's Playground / Traces tabs.
 # ──────────────────────────────────────────────────────────────────────────
 
 # ──────────────────────────────────────────────────────────────────────────

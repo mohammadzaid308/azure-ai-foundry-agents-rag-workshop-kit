@@ -31,11 +31,12 @@ print()
 
 # ──────────────────────────────────────────────────────────────────────────
 # 👁  PORTAL OBSERVATION
-#   Foundry portal → Monitoring → Traces.  Streaming calls appear as a
-#   single trace entry; the "response.output_text.delta" events are
-#   collapsed into one span.  Compare the latency here vs the
-#   non-streaming call in Lab 1a — streaming usually shows a *lower*
-#   time-to-first-byte but roughly the same total time.
+#   Like Lab 1 this is a direct model call (no agent), so it won't show on the
+#   Agents page. Watch usage under "Models + endpoints" (classic) /
+#   "Build → Models" (new Foundry) → your deployment → Metrics, or connect
+#   Application Insights (Lab 13) to capture the span under "Tracing".
+#   The streaming win is client-side: note the LOWER time-to-first-token here
+#   vs the non-streaming call in Lab 1 - total time is roughly the same.
 # ──────────────────────────────────────────────────────────────────────────
 
 # ──────────────────────────────────────────────────────────────────────────

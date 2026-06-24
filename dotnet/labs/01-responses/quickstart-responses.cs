@@ -24,11 +24,17 @@ Console.WriteLine(response.GetOutputText());
 
 
 // ===== PORTAL OBSERVATION =====
-//   After running, go to: Foundry portal -> your project -> Monitoring ->
-//   "Traces" (or "Activity"). You should see a new trace entry for the
-//   responses call with its latency and the model name. Nothing shows if
-//   APPLICATIONINSIGHTS_CONNECTION_STRING is not set, but the call still
-//   appears in the project's audit log.
+//   This is a DIRECT model call (Responses API) - it does NOT create an agent,
+//   so nothing appears on the Agents page. To observe it in the Microsoft
+//   Foundry portal (https://ai.azure.com):
+//     * Deployments: "Models + endpoints" (classic) / "Build -> Models" (new
+//       Foundry) -> open FOUNDRY_MODEL_DEPLOYMENT -> Metrics shows request
+//       count + token usage this call produced.
+//     * Per-call spans only appear if you connect Application Insights (Lab 13)
+//       - then view them under "Tracing" (classic) / "Operate -> Tracing" (new
+//       Foundry), or in Azure Monitor.
+//   NOTE: there is no "Monitoring -> Traces" page anymore - tracing moved to the
+//   "Tracing" page and to per-agent "Traces" tabs (you'll see those from Lab 3).
 //
 // ===== CHALLENGE  (complete the code, then re-run) =====
 //   The lab asks one hard-coded question. Add a SECOND CreateResponseAsync call

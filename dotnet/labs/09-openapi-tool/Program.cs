@@ -37,13 +37,14 @@ Console.WriteLine(response.GetOutputText());
 
 
 // ===== PORTAL OBSERVATION =====
-//   Foundry portal -> Agents -> <agent> -> Playground -> ask a weather
-//   question. In the "Show details" panel you can see:
+//   Microsoft Foundry portal -> "Agents" -> open this agent -> "Playground" ->
+//   ask a weather question. Expand "Show details" (and the agent's "Traces" tab)
+//   to see:
 //     * The OpenAPI operation the model resolved the call from.
 //     * The exact HTTP request the model formed (URL + query params).
 //     * The raw JSON response before the model summarized it.
-//   Compare this to the function-tool trace in the agent-function lab to spot
-//   the difference (remote HTTP call vs local C# method).
+//   Because this IS an agent (unlike the client-side function loop in the
+//   agent-function lab), the call runs server-side and shows in the agent traces.
 //
 // ===== CHALLENGE  - Add a second OpenAPI tool =====
 //   A tiny free API: https://dog.ceo/api/breeds/list/all

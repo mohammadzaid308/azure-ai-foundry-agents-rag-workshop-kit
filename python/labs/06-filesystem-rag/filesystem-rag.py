@@ -72,11 +72,14 @@ if __name__ == "__main__":
 
 # ──────────────────────────────────────────────────────────────────────────
 # 👁  PORTAL OBSERVATION
-#   Foundry portal → Agents → <agent> → Playground.
-#   Ask the same question as in the script and expand "Show files used".
-#   You should see the specific file chunks the agent cited.
-#   Also look at the Citations / References section at the bottom of the
-#   response — these link directly to the uploaded data source.
+#   Retrieval happens LOCALLY here; only the grounded prompt is sent to the
+#   model (no agent, no server-side tool call), so nothing shows on the Agents
+#   page. Instead watch input-token growth: the retrieved chunks are embedded
+#   in the prompt, so input_tokens are much higher than Lab 1. See it under
+#   "Models + endpoints" (classic) / "Build → Models" (new Foundry) → your
+#   deployment → Metrics (or in Azure Monitor if App Insights is set, Lab 13).
+#   For SERVER-side RAG with citations, Foundry offers a managed File Search
+#   tool on agents - this lab keeps retrieval offline on purpose.
 # ──────────────────────────────────────────────────────────────────────────
 
 # ──────────────────────────────────────────────────────────────────────────

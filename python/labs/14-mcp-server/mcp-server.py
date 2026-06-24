@@ -95,13 +95,14 @@ if __name__ == "__main__":
 # ──────────────────────────────────────────────────────────────────────────
 # 👁  PORTAL OBSERVATION (live Foundry path only)
 #   After running the Foundry path (not --offline):
-#     Foundry portal → Agents → <agent> → Playground.
+#     Microsoft Foundry portal → "Agents" → open <agent> → "Playground".
 #     Ask: "Do you have any seasonal bread?"
-#     In the "Show details" panel, expand the MCP tool call.  You'll see:
+#     Expand "Show details" (and the agent's "Traces" tab) on the MCP tool
+#     call to see:
 #       • The MCP server URL the model sent the request to.
 #       • The tool name (list_products) and arguments ({available_only:true}).
 #       • The raw JSON array returned by your server.
-#     This is exactly what you built — your server, Foundry's agent.
+#     This is exactly what you built - your server, Foundry's agent.
 # ──────────────────────────────────────────────────────────────────────────
 
 # ──────────────────────────────────────────────────────────────────────────

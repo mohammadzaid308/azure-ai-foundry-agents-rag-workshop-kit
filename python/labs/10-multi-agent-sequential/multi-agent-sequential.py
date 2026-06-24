@@ -135,18 +135,16 @@ print(
 # ──────────────────────────────────────────────────────────────────────────
 # 👁  PORTAL OBSERVATIONS (3 things to check)
 #
-#   1. Foundry portal → Agents → Workflows.
-#      Open the bakery-support-workflow and click "View diagram" to see
-#      the intake → specialist → synthesizer DAG rendered visually.
+#   1. Microsoft Foundry portal → "Agents" → "Workflows" → open
+#      bakery-support-workflow to see the intake → specialist → synthesizer
+#      graph rendered visually.
 #
-#   2. Foundry portal → Agents → Conversations.
-#      Find the conversation used by this script. Click it to walk
-#      through the step-by-step handoffs — each agent's reply is a
-#      separate message in the thread.
+#   2. Open the workflow agent → "Playground" and walk the step-by-step
+#      handoffs in the thread; each agent's reply is a separate message.
 #
-#   3. Foundry portal → Monitoring → Traces.
-#      The workflow run appears as a single trace with nested spans
-#      for each agent handoff.  Note the span names and durations.
+#   3. Open the workflow's "Traces" tab (or the project "Tracing" page): the
+#      run appears as one trace with nested spans per handoff (note span names
+#      + durations). Prompt-agent tracing is GA; workflow tracing is preview.
 # ──────────────────────────────────────────────────────────────────────────
 
 # ──────────────────────────────────────────────────────────────────────────

@@ -134,10 +134,11 @@ Console.WriteLine(
 
 
 // ===== PORTAL OBSERVATION =====
-//   Foundry portal -> Monitoring -> Traces. Open the trace for this run. In the
-//   client-driven fallback the three specialists run via Task.WhenAll, so their
-//   spans OVERLAP in time (they start at roughly the same wall-clock moment).
-//   Compare this to the sequential lab where the spans are chained end-to-end.
+//   Microsoft Foundry portal -> open this workflow/agent -> "Traces" tab (or the
+//   project "Tracing" page). In the client-driven fallback the three specialists
+//   run via Task.WhenAll, so their spans OVERLAP in time (they start at roughly
+//   the same wall-clock moment). Compare to the sequential lab where spans are
+//   chained end-to-end. (Workflow tracing is preview; prompt-agent tracing is GA.)
 //
 // ===== CHALLENGE  - Make the fan-out resilient =====
 //   Right now, if one specialist call throws, Task.WhenAll surfaces the

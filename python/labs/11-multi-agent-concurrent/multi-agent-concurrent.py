@@ -136,11 +136,11 @@ if __name__ == "__main__":
 
 # ──────────────────────────────────────────────────────────────────────────
 # 👁  PORTAL OBSERVATION
-#   Foundry portal → Monitoring → Traces.
-#   Open the trace for this run.  Because the agents ran concurrently
-#   (asyncio.gather), you should see overlapping span times for the
-#   individual agent calls — they start at roughly the same wall-clock
-#   time.  Compare this to the sequential workflow where spans are chained.
+#   Open this workflow/agent → "Traces" tab (or the project "Tracing" page)
+#   and expand the run. Because the agents ran concurrently (asyncio.gather),
+#   the individual agent spans OVERLAP - they start at roughly the same
+#   wall-clock time. Compare with the sequential lab, where spans are chained
+#   end-to-end. (Workflow tracing is preview; prompt-agent tracing is GA.)
 # ──────────────────────────────────────────────────────────────────────────
 
 # ──────────────────────────────────────────────────────────────────────────

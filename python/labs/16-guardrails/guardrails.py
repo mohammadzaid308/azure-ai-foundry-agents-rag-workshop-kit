@@ -135,12 +135,13 @@ if __name__ == "__main__":
 # ──────────────────────────────────────────────────────────────────────────
 # 👁  PORTAL OBSERVATION (Azure AI Content Safety path)
 #   If CONTENT_SAFETY_ENDPOINT is set:
-#   Azure portal → your Content Safety resource → Monitoring → Metrics.
-#   You should see "Total Calls" and "Blocked Content" counters increment.
-#   Foundry portal → Content Safety → Content filters.
-#   Check the default filter policy — it shows severity thresholds for
-#   Hate, Violence, Sexual, Self-harm categories.
-#   Compare these to the severity>=2 threshold used in content_safety_check().
+#     • Azure portal → your Content Safety resource → Monitoring → Metrics:
+#       "Total Calls" / "Blocked" counters increment as you run.
+#     • Microsoft Foundry portal → "Guardrails + controls" (classic) /
+#       "Operate → Compliance" (new Foundry) → "Content filters" tab. Open the
+#       default policy to see severity thresholds for Hate, Violence, Sexual,
+#       and Self-harm. Compare them to the severity>=2 threshold used in
+#       content_safety_check().
 # ──────────────────────────────────────────────────────────────────────────
 
 # ──────────────────────────────────────────────────────────────────────────
