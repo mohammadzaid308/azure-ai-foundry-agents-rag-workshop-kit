@@ -92,3 +92,35 @@ if __name__ == "__main__":
     tracer_provider.force_flush()
     meter_provider.force_flush()
     print("Telemetry flushed. Look above for the exported spans (and metrics).")
+
+
+# ──────────────────────────────────────────────────────────────────────────
+# 👁  PORTAL OBSERVATION (Azure Monitor path)
+#   After setting APPLICATIONINSIGHTS_CONNECTION_STRING and re-running:
+#
+#   1. Azure portal → Application Insights → Transaction search.
+#      Search for "chat frankies-bakery" — your span appears in <60 s.
+#      Click it to see the waterfall view with parent/child spans.
+#
+#   2. Azure portal → App Insights → Logs → run this KQL:
+#        traces | where message contains "gen_ai.request.model"
+#        | project timestamp, message | order by timestamp desc
+#
+#   3. Foundry portal → Monitoring → Traces.
+#      The same spans also appear here, automatically associated with
+#      your project by the APPLICATIONINSIGHTS_CONNECTION_STRING.
+# ──────────────────────────────────────────────────────────────────────────
+
+# ──────────────────────────────────────────────────────────────────────────
+# 🏋  CHALLENGE  — Add a latency histogram metric
+#
+#   The lab records a token counter. Add a latency histogram:
+#     1. Create:  latency_histo = meter.create_histogram(
+#           "gen_ai.client.operation.duration", unit="s",
+#           description="Duration of a single agent turn")
+#     2. Record wall-clock time around run_traced_turn().
+#     3. Call:  latency_histo.record(elapsed, {"gen_ai.request.model": MODEL})
+#   Then force_flush and check the console metric output.
+#   BONUS: Simulate two "slow" turns (add time.sleep(0.5)) and one fast
+#   turn and observe how the histogram buckets change.
+# ──────────────────────────────────────────────────────────────────────────

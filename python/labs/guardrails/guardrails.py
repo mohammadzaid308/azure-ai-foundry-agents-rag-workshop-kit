@@ -130,3 +130,29 @@ if __name__ == "__main__":
         result = handle(s)
         tag = "BLOCKED" if result["blocked"] else "ALLOWED"
         print(f"[{tag}] reasons={result['reasons']}\n  in : {s}\n  out: {result['answer']}\n")
+
+
+# ──────────────────────────────────────────────────────────────────────────
+# 👁  PORTAL OBSERVATION (Azure AI Content Safety path)
+#   If CONTENT_SAFETY_ENDPOINT is set:
+#   Azure portal → your Content Safety resource → Monitoring → Metrics.
+#   You should see "Total Calls" and "Blocked Content" counters increment.
+#   Foundry portal → Content Safety → Content filters.
+#   Check the default filter policy — it shows severity thresholds for
+#   Hate, Violence, Sexual, Self-harm categories.
+#   Compare these to the severity>=2 threshold used in content_safety_check().
+# ──────────────────────────────────────────────────────────────────────────
+
+# ──────────────────────────────────────────────────────────────────────────
+# 🏋  CHALLENGE  — Add a "rate limiter" guardrail
+#
+#   A production guardrail also prevents abuse (too many requests).
+#   Add a simple token-bucket rate limiter:
+#     1. Keep a module-level dict `_user_counts: dict[str, int] = {}`.
+#     2. Add a parameter `user_id: str` to guard_input().
+#     3. If _user_counts[user_id] > 5 (within the process lifetime),
+#        return GuardResult(allowed=False, reasons=["rate_limit"]).
+#     4. Otherwise increment the counter and proceed.
+#     5. Add a pytest case that calls guard_input 6 times for the same
+#        user and asserts the 6th is blocked with reason "rate_limit".
+# ──────────────────────────────────────────────────────────────────────────

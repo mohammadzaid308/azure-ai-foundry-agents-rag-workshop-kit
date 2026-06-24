@@ -224,3 +224,35 @@ if __name__ == "__main__":
     args = parser.parse_args()
     {"dataset": run_dataset_scenario, "model": run_model_scenario,
      "agent": run_agent_scenario, "traces": run_traces_scenario}[args.scenario]()
+
+
+# ──────────────────────────────────────────────────────────────────────────
+# 👁  PORTAL OBSERVATIONS (after running --scenario dataset)
+#
+#   Foundry portal → Evaluation → Evaluation runs.
+#   Find the run that was just created.  Click it to see:
+#     • Per-row scores (relevance / groundedness / fluency / F1).
+#     • A histogram of score distributions.
+#     • The "report URL" printed by the script is a direct deep-link here.
+#   Try the --scenario model run too and compare: which scenario has
+#   higher groundedness scores? Why?
+# ──────────────────────────────────────────────────────────────────────────
+
+# ──────────────────────────────────────────────────────────────────────────
+# 🏋  CHALLENGE  — Add a custom "tone" evaluator
+#
+#   Foundry eval runs support custom evaluators as Python functions.
+#   Add a new grader that checks whether an answer is "friendly"
+#   by counting exclamation marks and positive words ("great", "happy",
+#   "delicious", "fresh", "enjoy").
+#
+#   Steps:
+#     1. Define a Python function `tone_score(answer: str) -> float`
+#        that returns a value 0–1.
+#     2. Add a new scenario ("tone") that calls client.evals.create(...)
+#        with your custom grader in the evaluators list.
+#     3. Run: python evaluations.py --scenario tone
+#     4. Find the new run in the portal — does it appear as a separate
+#        column in the results table?
+#   HINT: Look at how the existing `LabelModelGrader` is constructed.
+# ──────────────────────────────────────────────────────────────────────────

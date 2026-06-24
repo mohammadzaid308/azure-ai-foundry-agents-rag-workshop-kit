@@ -67,3 +67,33 @@ with tracer.start_as_current_span("support.request.handle") as root:
 if tracer_provider is not None:
     tracer_provider.force_flush()
     print("Telemetry flushed to Azure Monitor.")
+
+
+# ──────────────────────────────────────────────────────────────────────────
+# 👁  PORTAL OBSERVATION
+#   1. Foundry portal → Monitoring → Traces.
+#      Find the "support.request.handle" trace.  Expand the child spans
+#      (foundry.responses.draft → foundry.responses.refine) and note
+#      the "workshop.lab" and "foundry.output.length" attributes.
+#
+#   2. Azure portal → Application Insights → Transaction search.
+#      Search for the same span name.  You can set a KQL alert on
+#      output.length dropping below a threshold — a real quality signal.
+#
+#   3. Foundry portal → Settings → Access control (IAM).
+#      Confirm your user has Azure AI User or Project Manager role.
+#      Try removing a role (undo after!) and observe the 403 error.
+# ──────────────────────────────────────────────────────────────────────────
+
+# ──────────────────────────────────────────────────────────────────────────
+# 🏋  CHALLENGE  — Add a custom span attribute for latency SLO
+#
+#   The script already records a draft and a refine span.  Extend it:
+#     1. Import `time`.
+#     2. Before the draft span, record `t_start = time.time()`.
+#     3. After the refine span, compute `total_ms = (time.time()-t_start)*1000`.
+#     4. Set root.set_attribute("workshop.latency_ms", total_ms).
+#     5. Add an assertion: if total_ms > 5000, print "⚠️ SLO BREACH".
+#   In a real system you'd emit this as a metric and page on-call.
+#   BONUS: Can you add the same latency attribute to each child span?
+# ──────────────────────────────────────────────────────────────────────────

@@ -47,3 +47,28 @@ response = openai.responses.create(
     input="What is the weather in London right now?",
 )
 print(response.output_text)
+
+
+# ──────────────────────────────────────────────────────────────────────────
+# 👁  PORTAL OBSERVATION
+#   Foundry portal → Agents → <agent> → Playground → ask a weather
+#   question.  In the "Show details" panel you can see:
+#     • The OpenAPI spec the model resolved the function from.
+#     • The exact HTTP request the model formed (URL + query params).
+#     • The raw JSON response before the model summarized it.
+#   This is the live "tool-call trace" — compare it to the function tool
+#   trace in Lab 2c to spot the difference (HTTP vs local Python call).
+# ──────────────────────────────────────────────────────────────────────────
+
+# ──────────────────────────────────────────────────────────────────────────
+# 🏋  CHALLENGE  — Add a second OpenAPI tool
+#
+#   A tiny free API: https://dog.ceo/api/breeds/list/all
+#   1. Write a minimal OpenAPI 3.0 JSON spec for GET /api/breeds/list/all
+#      (one path, no parameters, response is {message: {breeds_map}}).
+#   2. Create a second OpenApiTool called "dogs" using the same
+#      OpenApiAnonymousAuthDetails.
+#   3. Pass both tools to the agent definition (tools=[weather_tool, dogs_tool]).
+#   4. Ask: "Is it raining in London, and if so, what dog breed matches
+#      the mood?"  Watch the model decide which tool to call.
+# ──────────────────────────────────────────────────────────────────────────

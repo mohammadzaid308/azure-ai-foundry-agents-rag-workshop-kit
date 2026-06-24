@@ -130,3 +130,38 @@ print(
     f"\nDone. Open '{WORKFLOW_NAME}' in the Foundry portal (Agents / Workflows) "
     "to see the intake -> specialist -> synthesizer workflow."
 )
+
+
+# ──────────────────────────────────────────────────────────────────────────
+# 👁  PORTAL OBSERVATIONS (3 things to check)
+#
+#   1. Foundry portal → Agents → Workflows.
+#      Open the bakery-support-workflow and click "View diagram" to see
+#      the intake → specialist → synthesizer DAG rendered visually.
+#
+#   2. Foundry portal → Agents → Conversations.
+#      Find the conversation used by this script. Click it to walk
+#      through the step-by-step handoffs — each agent's reply is a
+#      separate message in the thread.
+#
+#   3. Foundry portal → Monitoring → Traces.
+#      The workflow run appears as a single trace with nested spans
+#      for each agent handoff.  Note the span names and durations.
+# ──────────────────────────────────────────────────────────────────────────
+
+# ──────────────────────────────────────────────────────────────────────────
+# 🏋  CHALLENGE  — Add a fourth "quality-check" agent
+#
+#   After the synthesizer writes its final answer, route it through a
+#   fourth agent whose instructions are:
+#     "Review the following bakery support answer. If it mentions any
+#      allergen (nut, gluten, dairy), prepend a ⚠️ WARNING. Otherwise
+#      output the answer unchanged."
+#
+#   Steps:
+#     1. Create a fourth PromptAgentDefinition (quality-checker).
+#     2. Add it as the next step in the WorkflowAgentDefinition.
+#     3. Re-run and ask a question about a cake with nuts.
+#     4. Check the portal workflow diagram — is the new step shown?
+#   HINT: WorkflowAgentDefinition takes a `steps` list; append to it.
+# ──────────────────────────────────────────────────────────────────────────

@@ -25,3 +25,30 @@ agent = project.agents.create_version(
     ),
 )
 print(f"Agent created (id: {agent.id}, name: {agent.name}, version: {agent.version})")
+
+# ──────────────────────────────────────────────────────────────────────────
+# 👁  PORTAL OBSERVATION
+#   Foundry portal → Agents.  After running, find the agent by the name
+#   in FOUNDRY_AGENT_NAME.  Click it and note:
+#     • Version number (starts at 1; re-running increments it).
+#     • Model deployment name linked to it.
+#     • System prompt / instructions as stored server-side.
+#   Try editing the instructions in the portal, save, then re-list
+#   versions — you'll see a new version entry without running code.
+# ──────────────────────────────────────────────────────────────────────────
+
+# ──────────────────────────────────────────────────────────────────────────
+# 🏋  CHALLENGE
+#
+#   A PromptAgentDefinition can also accept a `temperature` parameter
+#   and a `top_p` parameter to control creativity.
+#
+#   Modify the definition to:
+#     a) Set temperature=0.2 (more deterministic).
+#     b) Add a second create_version call with temperature=1.0
+#        and a *different* agent name (e.g. "creative-agent").
+#     c) Print both agents' ids and version numbers.
+#
+#   HINT:  PromptAgentDefinition(model=..., instructions=..., temperature=0.2)
+#   Then go to the portal and compare the two agents in the Agents list.
+# ──────────────────────────────────────────────────────────────────────────

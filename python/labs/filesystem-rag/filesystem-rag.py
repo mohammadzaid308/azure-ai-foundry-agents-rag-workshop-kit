@@ -68,3 +68,26 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+
+# ──────────────────────────────────────────────────────────────────────────
+# 👁  PORTAL OBSERVATION
+#   Foundry portal → Agents → <agent> → Playground.
+#   Ask the same question as in the script and expand "Show files used".
+#   You should see the specific file chunks the agent cited.
+#   Also look at the Citations / References section at the bottom of the
+#   response — these link directly to the uploaded data source.
+# ──────────────────────────────────────────────────────────────────────────
+
+# ──────────────────────────────────────────────────────────────────────────
+# 🏋  CHALLENGE  — Tune the vector search
+#
+#   FileSearchTool accepts a `max_num_results` parameter (default 10).
+#   1. Change it to 3 and run the same query. Does the answer change?
+#   2. Add a second query asking something NOT in the gift corpus
+#      (e.g. "How do I bake sourdough?") and observe whether the agent
+#      gracefully says it doesn't know or hallucinates.
+#   3. BONUS: Upload one more .txt file to data/gift with a made-up gift
+#      suggestion.  Re-run without restarting — does Foundry pick it up?
+#      (Hint: the vector store must be re-uploaded each run as coded here.)
+# ──────────────────────────────────────────────────────────────────────────

@@ -33,3 +33,27 @@ response = openai.responses.create(
     input="And what is the capital city?",
 )
 print(response.output_text)
+
+
+# ──────────────────────────────────────────────────────────────────────────
+# 👁  PORTAL OBSERVATION
+#   Foundry portal → Agents → <your agent> → "Conversations".
+#   After running, you should see the conversation ID here.  Click it to
+#   inspect the full message history including the model's reasoning.
+#   Note how both turns (country name + capital city) are stored in a
+#   single conversation thread.
+# ──────────────────────────────────────────────────────────────────────────
+
+# ──────────────────────────────────────────────────────────────────────────
+# 🏋  CHALLENGE  — Add a third turn + measure context growth
+#
+#   Add a third openai.responses.create call to the same conversation:
+#     input="What language do people speak there, and is it an EU member?"
+#   Then:
+#     a) Print the full conversation thread by calling
+#        openai.conversations.messages.list(conversation_id=conversation.id)
+#        and showing each message's role + content.
+#     b) Count how many tokens are in the conversation so far using
+#        response.usage.input_tokens from the last response.
+#   This shows how conversation context grows with each turn.
+# ──────────────────────────────────────────────────────────────────────────

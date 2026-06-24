@@ -90,3 +90,35 @@ if __name__ == "__main__":
         offline_demo()
     else:
         foundry_demo()
+
+
+# ──────────────────────────────────────────────────────────────────────────
+# 👁  PORTAL OBSERVATION (live Foundry path only)
+#   After running the Foundry path (not --offline):
+#     Foundry portal → Agents → <agent> → Playground.
+#     Ask: "Do you have any seasonal bread?"
+#     In the "Show details" panel, expand the MCP tool call.  You'll see:
+#       • The MCP server URL the model sent the request to.
+#       • The tool name (list_products) and arguments ({available_only:true}).
+#       • The raw JSON array returned by your server.
+#     This is exactly what you built — your server, Foundry's agent.
+# ──────────────────────────────────────────────────────────────────────────
+
+# ──────────────────────────────────────────────────────────────────────────
+# 🏋  CHALLENGE  — Add a "get_recommendations" tool
+#
+#   Extend bakery_mcp_server.py with a new @mcp.tool() function:
+#
+#     @mcp.tool()
+#     def get_recommendations(budget: float, dietary: str = "") -> list:
+#         """Return up to 3 products under `budget` that match dietary tag."""
+#         # TODO: filter store.list_products() by price <= budget
+#         # and dietary tag in product['tags'] or product['ingredients']
+#         # return the top 3 sorted by rating
+#
+#   Then:
+#     1. Implement the body.
+#     2. Add a pytest case to test_offline.py.
+#     3. Add the new tool name to `allowed_tools` in mcp-server.py.
+#     4. Ask the agent: "I have $10 and I'm gluten-free. Any suggestions?"
+# ──────────────────────────────────────────────────────────────────────────

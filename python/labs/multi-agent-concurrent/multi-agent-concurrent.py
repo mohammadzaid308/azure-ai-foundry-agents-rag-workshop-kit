@@ -132,3 +132,26 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+
+
+# ──────────────────────────────────────────────────────────────────────────
+# 👁  PORTAL OBSERVATION
+#   Foundry portal → Monitoring → Traces.
+#   Open the trace for this run.  Because the agents ran concurrently
+#   (asyncio.gather), you should see overlapping span times for the
+#   individual agent calls — they start at roughly the same wall-clock
+#   time.  Compare this to the sequential workflow where spans are chained.
+# ──────────────────────────────────────────────────────────────────────────
+
+# ──────────────────────────────────────────────────────────────────────────
+# 🏋  CHALLENGE  — Add error handling + retry
+#
+#   Currently if one of the concurrent agents fails, the whole gather()
+#   call crashes.  Improve resilience:
+#     1. Wrap each agent call in a try/except that returns a fallback
+#        dict {"agent": name, "result": "FAILED: " + str(e), "ok": False}
+#     2. In the aggregator, count how many agents succeeded vs failed.
+#     3. If any failed, re-issue just the failed agents (one retry).
+#   BONUS: Use asyncio.wait_for(..., timeout=10) to cap each agent call
+#   at 10 seconds and treat a timeout as a failure.
+# ──────────────────────────────────────────────────────────────────────────

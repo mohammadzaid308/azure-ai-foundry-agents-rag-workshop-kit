@@ -119,3 +119,31 @@ for _ in range(5):
     )
 
 print(response.output_text)
+
+
+# ──────────────────────────────────────────────────────────────────────────
+# 👁  PORTAL OBSERVATION
+#   Foundry portal → Agents → <agent> → Run the agent in the "Playground".
+#   Click "Show details" on a response that triggered a tool call to see:
+#     • The exact JSON arguments the model sent to the function.
+#     • The tool output that was returned.
+#     • The model's final synthesis step.
+#   This is the "tool-call trace" in the playground — bookmark it.
+# ──────────────────────────────────────────────────────────────────────────
+
+# ──────────────────────────────────────────────────────────────────────────
+# 🏋  CHALLENGE  — Add a "get_order_history" function tool
+#
+#   The agent currently calls list_products / get_product / place_order.
+#   Add a new Python function `get_order_status(order_id: str) -> dict`
+#   that reads from data/orders.json and returns the order or an error.
+#   Steps:
+#     1. Define the Python function (reading the local JSON file).
+#     2. Add its schema to the `tools` list in the same format as the
+#        existing functions (type/function/name/description/parameters).
+#     3. Add a handler case in the tool-call dispatch loop.
+#     4. Test by asking: "What is the status of order ORD-0001?"
+#        (place an order first so the file exists).
+#   BONUS: What happens if you ask for an order that does not exist?
+#          Can you make the agent give a friendly error?
+# ──────────────────────────────────────────────────────────────────────────
