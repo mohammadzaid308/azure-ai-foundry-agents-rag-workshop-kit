@@ -79,3 +79,23 @@ static double TokenF1(string prediction, string reference)
     double recall = (double)overlap / reff.Count;
     return 2 * precision * recall / (precision + recall);
 }
+
+
+// ===== PORTAL OBSERVATION =====
+//   This .NET lab is the OFFLINE pre-flight gate (deterministic token-F1 and
+//   exact-match, no Azure calls). The managed LLM-judge evaluation runs in the
+//   Python evaluations lab. After you run that one, go to Foundry portal ->
+//   Evaluation -> Evaluation runs to see per-row relevance / groundedness /
+//   fluency scores. Mental model: run THIS cheap gate in CI first, and only
+//   pay for the LLM-judge eval when this passes.
+//
+// ===== CHALLENGE  - Add a custom "tone" metric =====
+//   Add a third, offline metric that scores how "friendly" each response is.
+//     1. Write a static method `double ToneScore(string answer)` that returns
+//        a 0..1 score, e.g. based on counting exclamation marks and positive
+//        words ("great","happy","delicious","fresh","enjoy"), capped at 1.0.
+//     2. Compute it per row, accumulate a running total, and add a "Tone"
+//        column to the table header and each printed row.
+//     3. Print the mean tone at the end next to mean F1.
+//     4. BONUS: add a second gate - fail the run if mean tone < 0.20 - and
+//        decide: should tone be a hard gate or just a warning? Why?

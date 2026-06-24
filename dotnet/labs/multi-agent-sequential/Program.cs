@@ -132,3 +132,29 @@ catch (Exception exc)
 Console.WriteLine(
     $"\nDone. Open '{workflowName}' in the Foundry portal (Agents / Workflows) " +
     "to see the intake -> specialist -> synthesizer workflow.");
+
+
+// ===== PORTAL OBSERVATION  (3 things to check) =====
+//   1. Foundry portal -> Agents -> Workflows. Open bakery-support-workflow and
+//      click "View diagram" to see the intake -> specialist -> synthesizer DAG.
+//   2. Foundry portal -> Agents -> Conversations. Find the conversation used by
+//      this run and walk through the step-by-step handoffs - each agent's reply
+//      is a separate message in the thread.
+//   3. Foundry portal -> Monitoring -> Traces. The workflow run appears as a
+//      single trace with nested spans for each agent handoff. Note the span
+//      names and durations.
+//
+// ===== CHALLENGE  - Add a fourth "quality-check" agent =====
+//   After the synthesizer writes its final answer, route it through a fourth
+//   agent whose instructions are:
+//     "Review the following bakery support answer. If it mentions any allergen
+//      (nut, gluten, dairy), prepend a 'WARNING:' line. Otherwise output the
+//      answer unchanged."
+//   Steps:
+//     1. Add ("bakery-quality", "<instructions above>") to the agentSpecs array
+//        so it is created like the others.
+//     2. Add it as the next step in workflow.yaml (after the synthesizer node).
+//     3. In the client-driven fallback, add a final
+//        Run("bakery-quality", reply) call and print its output.
+//     4. Re-run with a ticket about a cake WITH nuts and confirm the warning.
+//   Then check the portal workflow diagram - is the new step shown?

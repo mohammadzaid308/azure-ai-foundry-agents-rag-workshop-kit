@@ -131,3 +131,26 @@ catch (Exception exc)
 Console.WriteLine(
     $"\nDone. Open '{workflowName}' in the Foundry portal (Agents / Workflows) " +
     "to see the concurrent support escalation flow.");
+
+
+// ===== PORTAL OBSERVATION =====
+//   Foundry portal -> Monitoring -> Traces. Open the trace for this run. In the
+//   client-driven fallback the three specialists run via Task.WhenAll, so their
+//   spans OVERLAP in time (they start at roughly the same wall-clock moment).
+//   Compare this to the sequential lab where the spans are chained end-to-end.
+//
+// ===== CHALLENGE  - Make the fan-out resilient =====
+//   Right now, if one specialist call throws, Task.WhenAll surfaces the
+//   exception and the whole fan-out fails. Improve resilience:
+//     1. Wrap the Ask(...) call in a helper that catches exceptions and returns
+//        a fallback string, e.g.:
+//          async Task<string> SafeAsk(string name, string text) {
+//              try { return await Ask(name, text); }
+//              catch (Exception e) { return $"FAILED: {e.Message.Split('\n')[0]}"; }
+//          }
+//     2. Use SafeAsk for all three specialists so one failure cannot sink the
+//        others.
+//     3. Count how many returned "FAILED:" and, if any did, retry just those
+//        once before calling the supervisor.
+//   BONUS: cap each call with a timeout using
+//   task.WaitAsync(TimeSpan.FromSeconds(10)) and treat a timeout as a failure.

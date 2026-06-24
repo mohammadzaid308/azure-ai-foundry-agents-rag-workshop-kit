@@ -21,3 +21,23 @@ ResponseResult response = await responseClient.CreateResponseAsync(
     "What is the size of France in square miles?");
 
 Console.WriteLine(response.GetOutputText());
+
+
+// ===== PORTAL OBSERVATION =====
+//   After running, go to: Foundry portal -> your project -> Monitoring ->
+//   "Traces" (or "Activity"). You should see a new trace entry for the
+//   responses call with its latency and the model name. Nothing shows if
+//   APPLICATIONINSIGHTS_CONNECTION_STRING is not set, but the call still
+//   appears in the project's audit log.
+//
+// ===== CHALLENGE  (complete the code, then re-run) =====
+//   The lab asks one hard-coded question. Add a SECOND CreateResponseAsync call
+//   that:
+//     1. Asks the model to convert the answer to square KILOMETRES.
+//     2. Passes the previous answer (response.GetOutputText()) as context in
+//        the new prompt string.
+//     3. Prints both answers side by side.
+//   HINT:
+//     ResponseResult response2 = await responseClient.CreateResponseAsync(
+//         $"Convert '{response.GetOutputText()}' from square miles to square km.");
+//     Console.WriteLine(response2.GetOutputText());

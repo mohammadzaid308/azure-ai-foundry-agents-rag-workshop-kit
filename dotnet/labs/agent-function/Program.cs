@@ -131,3 +131,33 @@ for (int turn = 0; turn < 5; turn++)
 }
 
 Console.WriteLine(response.GetOutputText());
+
+
+// ===== PORTAL OBSERVATION =====
+//   Foundry portal -> Agents -> <agent> -> open the "Playground" and re-ask the
+//   same request. Click "Show details" on a response that triggered a tool call
+//   to see:
+//     * The exact JSON arguments the model sent to the function.
+//     * The tool output that was returned.
+//     * The model's final synthesis step.
+//   This is the "tool-call trace" - it mirrors the FunctionCallResponseItem /
+//   FunctionCallOutputItem loop in this file.
+//
+// ===== CHALLENGE  - Add a "get_order_status" function tool =====
+//   The agent currently calls list_products / get_product / place_order.
+//   Add a fourth tool `get_order_status(order_id)`:
+//     1. Write a local C# method `string GetOrderStatus(string orderId)` that
+//        looks up an order (you can keep an in-memory Dictionary of orders you
+//        create in PlaceOrder, or read data/orders.json if present) and returns
+//        JSON, or {"error": "..."} when not found.
+//     2. Register it with ResponseTool.CreateFunctionTool(
+//            functionName: "get_order_status",
+//            functionParameters: BinaryData.FromString(
+//              "{\"type\":\"object\",\"properties\":{\"order_id\":{\"type\":\"string\"}},\"required\":[\"order_id\"]}"),
+//            strictModeEnabled: false,
+//            functionDescription: "Look up the status of an order by order_id.");
+//        and options.Tools.Add(...).
+//     3. Add a new case to the `call.FunctionName switch` dispatch.
+//     4. Test by asking: "Place an order for 2 Challah, then tell me its status."
+//   BONUS: ask for an order that does not exist - can you make the agent return
+//   a friendly error instead of crashing?

@@ -58,3 +58,23 @@ static HashSet<string> Tokenize(string text)
         .Select(m => m.Value)
         .ToHashSet();
 }
+
+
+// ===== PORTAL OBSERVATION =====
+//   This lab retrieves locally and only sends the grounded prompt to Foundry.
+//   In the portal -> Monitoring -> Traces you'll see ONE model call (no tool
+//   calls). Compare the prompt size here vs the responses lab: the retrieved
+//   context is embedded in the prompt, so input_tokens are much higher. That
+//   token cost is the price of grounding - keep an eye on it.
+//
+// ===== CHALLENGE  - Tune the retriever =====
+//   The retriever currently returns the top 3 files (.Take(3)).
+//   1. Change Take(3) to Take(1) and re-run the same query. Does the answer
+//      get worse (missing dislikes / history)? Why?
+//   2. Add a SECOND question that is NOT in the gift corpus
+//      (e.g. "How do I bake sourdough?") and observe whether the grounded
+//      prompt makes the model say it does not know (it should, given the
+//      system instruction) instead of hallucinating.
+//   3. BONUS: improve RetrieveContext to also split files into ~500-char
+//      chunks and score each chunk, so a long file does not dominate purely
+//      because it is long.

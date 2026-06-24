@@ -41,3 +41,21 @@ Console.WriteLine($"Agent: {first.GetOutputText()}");
 ResponseResult second = await responses.CreateResponseAsync(
     "And what is its capital city?");
 Console.WriteLine($"Agent: {second.GetOutputText()}");
+
+
+// ===== PORTAL OBSERVATION =====
+//   Foundry portal -> Agents -> <your agent> -> "Conversations". After running,
+//   you should see the conversation here. Click it to inspect the full message
+//   history. Note how BOTH turns (country size + capital city) are stored in a
+//   single conversation thread - that shared context is why the follow-up
+//   "And what is its capital city?" works without repeating the country.
+//
+// ===== CHALLENGE  - Add a third turn + inspect the thread =====
+//   1. Add a THIRD CreateResponseAsync call on the same `responses` client:
+//        "What language do people speak there, and is it an EU member?"
+//      It should still resolve "there" from conversation context.
+//   2. Print the conversation Id (conversation.Id) so you can find it fast in
+//      the portal Conversations view.
+//   3. BONUS: list the stored messages via the conversations client
+//      (projectClient.ProjectOpenAIClient.GetProjectConversationsClient())
+//      and print each role + text to see how context grows per turn.

@@ -34,3 +34,25 @@ ProjectResponsesClient responses = projectClient.ProjectOpenAIClient
 
 ResponseResult response = await responses.CreateResponseAsync("What is the weather in London right now?");
 Console.WriteLine(response.GetOutputText());
+
+
+// ===== PORTAL OBSERVATION =====
+//   Foundry portal -> Agents -> <agent> -> Playground -> ask a weather
+//   question. In the "Show details" panel you can see:
+//     * The OpenAPI operation the model resolved the call from.
+//     * The exact HTTP request the model formed (URL + query params).
+//     * The raw JSON response before the model summarized it.
+//   Compare this to the function-tool trace in the agent-function lab to spot
+//   the difference (remote HTTP call vs local C# method).
+//
+// ===== CHALLENGE  - Add a second OpenAPI tool =====
+//   A tiny free API: https://dog.ceo/api/breeds/list/all
+//   1. Write a minimal OpenAPI 3.0 JSON spec for GET /api/breeds/list/all
+//      (one path, no parameters) and save it next to weather-openapi.json.
+//   2. Build a second tool the same way:
+//        var dogs = new OpenAPITool(new OpenApiFunctionDefinition(
+//            "listDogBreeds", dogSpec, new OpenAPIAnonymousAuthenticationDetails()));
+//        definition.Tools.Add(dogs);
+//   3. Ask: "Is it raining in London, and if so suggest a dog breed that
+//      matches the mood?" Watch the model decide WHICH tool to call (and in
+//      what order) in the portal tool-call trace.

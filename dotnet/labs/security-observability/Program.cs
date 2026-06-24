@@ -88,3 +88,27 @@ if (tracerProvider is not null)
     Console.WriteLine("Telemetry flushed to Azure Monitor.");
 }
 
+
+
+// ===== PORTAL OBSERVATION =====
+//   1. Foundry portal -> Monitoring -> Traces. Find the "support.request.handle"
+//      trace. Expand the child spans (foundry.responses.draft ->
+//      foundry.responses.refine) and note the "workshop.lab" and
+//      "foundry.output.length" tags set in this code.
+//   2. Azure portal -> Application Insights -> Transaction search (only if
+//      APPLICATIONINSIGHTS_CONNECTION_STRING is set). Search the same span name;
+//      you could set a KQL alert on output.length dropping below a threshold.
+//   3. Foundry portal -> Settings -> Access control (IAM). Confirm your user has
+//      "Azure AI User" or "Azure AI Project Manager". Try removing a role (undo
+//      after!) and observe the 403 the next time you run.
+//
+// ===== CHALLENGE  - Add a latency SLO attribute =====
+//   The code already records a draft span and a refine span. Extend it:
+//     1. Start a stopwatch before the root activity: var sw = Stopwatch.StartNew();
+//        (System.Diagnostics is already imported.)
+//     2. After the draft/refine block, compute sw.ElapsedMilliseconds.
+//     3. Tag the root span: root?.SetTag("workshop.latency_ms", sw.ElapsedMilliseconds);
+//     4. If it exceeds an SLO (e.g. > 5000 ms) print "SLO BREACH" - in a real
+//        system you would emit this as a metric and page on-call.
+//   BONUS: also tag each child span with its own ElapsedMilliseconds so you can
+//   see which step (draft vs refine) dominates latency in the portal trace.
