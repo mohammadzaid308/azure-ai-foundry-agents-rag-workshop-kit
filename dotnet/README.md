@@ -1,5 +1,14 @@
 # .NET Track
 
+> [!IMPORTANT]
+> **⚠️ Workshop / Learning Code — Not Production-Grade**
+> This repository is teaching material for a hands-on workshop. Samples are written
+> for **clarity**, not robustness. They intentionally omit production concerns such as
+> hardened error handling, retries, input validation, secrets management, rate limiting,
+> and security hardening. **Do not deploy this code as-is.** Use it to learn Azure AI
+> Foundry SDK patterns, then apply your own engineering standards before any real-world
+> use. Provided *as-is, without warranty of any kind*.
+
 This track is self-contained and uses the newest Azure AI Foundry SDK
 (Azure AI Projects 2.x with the OpenAI Responses/Conversations API).
 There is no legacy `Azure.AI.Agents.Persistent` code. Creating an agent is a

@@ -1,5 +1,14 @@
 # Azure AI Foundry Agents + RAG Workshop Kit
 
+> [!IMPORTANT]
+> **⚠️ Workshop / Learning Code — Not Production-Grade**
+> This repository is teaching material for a hands-on workshop. Samples are written
+> for **clarity**, not robustness. They intentionally omit production concerns such as
+> hardened error handling, retries, input validation, secrets management, rate limiting,
+> and security hardening. **Do not deploy this code as-is.** Use it to learn Azure AI
+> Foundry SDK patterns, then apply your own engineering standards before any real-world
+> use. Provided *as-is, without warranty of any kind*.
+
 A focused 1-day, code-first workshop package with two independent tracks:
 
 - `dotnet/`
