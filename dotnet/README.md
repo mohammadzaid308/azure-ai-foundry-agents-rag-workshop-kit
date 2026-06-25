@@ -68,11 +68,18 @@ lab (Lab 2), not a prerequisite.
 
 ## Run labs
 
-Each lab is a standalone console app:
+Each lab is a standalone console app. Every lab auto-loads `dotnet/.env` at
+startup (via the shared `labs/DotEnv.cs` loader), so you can just run:
+
+```bash
+cd labs/01-responses && dotnet run
+```
+
+Variables you export yourself still win, so the classic pattern also works:
 
 ```bash
 set -a && source .env && set +a
-cd labs/responses && dotnet restore && dotnet run
+cd labs/01-responses && dotnet run
 ```
 
 Or run the core runnable labs end to end:

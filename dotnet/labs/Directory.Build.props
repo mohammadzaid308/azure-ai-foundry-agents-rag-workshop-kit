@@ -1,0 +1,12 @@
+<Project>
+  <!--
+    Imported automatically by every lab project under dotnet/labs/.
+    It compiles the shared .env loader (DotEnv.cs) into each lab so that
+    running `dotnet run` from a lab folder loads dotnet/.env automatically -
+    no need to `source .env` first. Variables already set in your shell still
+    take precedence.
+  -->
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)DotEnv.cs" Link="DotEnv.cs" />
+  </ItemGroup>
+</Project>
