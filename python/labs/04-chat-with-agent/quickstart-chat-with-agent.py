@@ -24,14 +24,17 @@ response = openai.responses.create(
     extra_body={"agent_reference": {"name": AGENT_NAME, "type": "agent_reference"}},
     input="What is the size of France in square miles?",
 )
-print(response.output_text)
-
+print(response.output_text) # show the conversation thread so far
 # Ask a follow-up question in the same conversation
 response = openai.responses.create(
     conversation=conversation.id,
     extra_body={"agent_reference": {"name": AGENT_NAME, "type": "agent_reference"}},
     input="And what is the capital city?",
 )
+
+response = openai.conversations.items.list(conversation_id=conversation.id)
+
+print(response) # show the conversation thread so far
 print(response.output_text)
 
 
@@ -53,7 +56,7 @@ print(response.output_text)
 #     input="What language do people speak there, and is it an EU member?"
 #   Then:
 #     a) Print the full conversation thread by calling
-#        openai.conversations.messages.list(conversation_id=conversation.id)
+#        openai.conversations.items.list(conversation_id=conversation.id)
 #        and showing each message's role + content.
 #     b) Count how many tokens are in the conversation so far using
 #        response.usage.input_tokens from the last response.
