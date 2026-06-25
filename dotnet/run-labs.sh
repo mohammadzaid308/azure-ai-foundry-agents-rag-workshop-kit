@@ -12,5 +12,5 @@ for lab in 01-responses 02-streaming-responses 03-create-agent 04-chat-with-agen
   (cd "labs/$lab" && dotnet restore && dotnet run)
 done
 
-echo "Grounding labs (07-bing-grounding, 08-azure-ai-search, 09-openapi-tool) and 14-capstone"
+echo "Grounding labs (07-bing-grounding, 08-azure-ai-search, 09-openapi-tool), 14-mcp-server, and 15-capstone"
 echo "require Foundry connections / your own scenario. Run them manually."

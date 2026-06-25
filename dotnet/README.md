@@ -60,7 +60,8 @@ lab (Lab 2), not a prerequisite.
 | Lab 4: Concurrent | `11-multi-agent-concurrent` | Parallel agents plus aggregation |
 | Lab 5: Evaluations | `12-evaluations` | Bakery answer-quality grading (offline token-F1 gate, no Azure) |
 | Lab 5: Security and observability | `13-security-observability` | RBAC token check plus tracing |
-| Lab 6: Capstone | `14-capstone` | Starter to combine everything |
+| Lab 5: Build an MCP server | `14-mcp-server` | Frankie's Bakery MCP server (5 tools) + Foundry hosted MCP tool |
+| Lab 6: Capstone | `15-capstone` | Starter to combine everything |
 
 > Grounding labs (Lab 3) need Foundry connections. Create the Bing / Azure AI
 > Search connections in your project and set the matching env vars before running.

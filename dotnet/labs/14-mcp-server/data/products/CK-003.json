@@ -1,0 +1,16 @@
+{
+  "product_id": "CK-003",
+  "name": "Macadamia Nut Cookie",
+  "description": "Spiced and sweet, a holiday classic perfect for any time of year.",
+  "category": "Cookies",
+  "price": 6.21,
+  "availability": "Out of Stock",
+  "ingredients": "flour, butter, sugar, brown sugar, eggs, vanilla extract, baking soda, chocolate chips",
+  "rating": 3.1,
+  "release_date": "2024-01-23",
+  "tags": [
+    "gluten-free",
+    "dairy-free"
+  ],
+  "image_url": "https://frankiesbakery.com/images/ck_003.jpg"
+}

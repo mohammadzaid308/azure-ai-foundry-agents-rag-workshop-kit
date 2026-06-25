@@ -1,0 +1,15 @@
+{
+  "product_id": "BD-001",
+  "name": "Challah Bread",
+  "description": "Braided, rich, and slightly sweet, ideal for special occasions.",
+  "category": "Bread",
+  "price": 10.38,
+  "availability": "Seasonal",
+  "ingredients": "whole wheat flour, rye flour, oats, flax seeds, water, salt, yeast",
+  "rating": 3.7,
+  "release_date": "2024-02-09",
+  "tags": [
+    "seasonal"
+  ],
+  "image_url": "https://frankiesbakery.com/images/bd_001.jpg"
+}

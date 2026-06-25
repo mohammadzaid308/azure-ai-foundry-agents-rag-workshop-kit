@@ -1,0 +1,16 @@
+{
+  "product_id": "BR-007",
+  "name": "Raspberry Fudge Brownie",
+  "description": "A perfect balance of sweet and salty with a gooey caramel swirl.",
+  "category": "Brownies",
+  "price": 12.98,
+  "availability": "Out of Stock",
+  "ingredients": "flour, sugar, cocoa powder, butter, eggs, vanilla extract, salt",
+  "rating": 3.5,
+  "release_date": "2024-05-16",
+  "tags": [
+    "best-seller",
+    "new-arrival"
+  ],
+  "image_url": "https://frankiesbakery.com/images/br_007.jpg"
+}

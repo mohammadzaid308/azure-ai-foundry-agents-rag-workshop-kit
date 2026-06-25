@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <AssemblyName>mcp-server</AssemblyName>
+        <RootNamespace>BakeryMcp</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <!-- Foundry hosted MCP tool (the Azure / agent side) -->
+        <PackageReference Include="Azure.AI.Projects" Version="2.0.1" />
+        <PackageReference Include="Azure.AI.Extensions.OpenAI" Version="2.0.0" />
+        <PackageReference Include="Azure.AI.Projects.Agents" Version="2.0.0" />
+        <!-- The MCP server itself (the tool provider) -->
+        <PackageReference Include="ModelContextProtocol" Version="1.4.0" />
+        <PackageReference Include="ModelContextProtocol.AspNetCore" Version="1.4.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="data/**/*.json" CopyToOutputDirectory="PreserveNewest" />
+    </ItemGroup>
+</Project>

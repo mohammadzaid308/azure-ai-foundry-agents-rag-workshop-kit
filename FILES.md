@@ -33,4 +33,4 @@
 - `labs/15-evaluations-tests/` - Lab 6 (Python): pytest quality + adversarial gate, `data/*.jsonl`
 - `labs/16-guardrails/` - Lab 6 (Python): prompt-injection / PII / banned-topic pipeline + optional Content Safety
 - `labs/17-telemetry/` - Lab 6 (Python): OpenTelemetry GenAI tracing + token metrics
-- `labs/14-capstone/` (.NET) / `labs/18-capstone/` (Python) - Lab 7: starter to combine everything
+- `labs/15-capstone/` (.NET) / `labs/18-capstone/` (Python) - Lab 7: starter to combine everything

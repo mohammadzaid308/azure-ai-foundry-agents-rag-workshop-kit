@@ -1,0 +1,16 @@
+{
+  "product_id": "BR-009",
+  "name": "Walnut Brownie",
+  "description": "A buttery, vanilla-rich blondie with white chocolate chips.",
+  "category": "Brownies",
+  "price": 11.72,
+  "availability": "In Stock",
+  "ingredients": "flour, sugar, cocoa powder, butter, eggs, vanilla extract, salt, walnuts",
+  "rating": 4.6,
+  "release_date": "2024-04-15",
+  "tags": [
+    "holiday",
+    "seasonal"
+  ],
+  "image_url": "https://frankiesbakery.com/images/br_009.jpg"
+}

@@ -1,0 +1,16 @@
+{
+  "product_id": "BD-013",
+  "name": "Multigrain Bread",
+  "description": "Crispy on the outside, soft on the inside, perfect for dipping.",
+  "category": "Bread",
+  "price": 8.57,
+  "availability": "Out of Stock",
+  "ingredients": "whole wheat flour, rye flour, oats, flax seeds, water, salt, yeast",
+  "rating": 4.8,
+  "release_date": "2024-04-23",
+  "tags": [
+    "savory",
+    "classic"
+  ],
+  "image_url": "https://frankiesbakery.com/images/bd_013.jpg"
+}

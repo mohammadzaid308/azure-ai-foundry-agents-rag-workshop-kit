@@ -40,6 +40,20 @@ def offline_demo():
 
 
 def foundry_demo():
+    # ──────────────────────────────────────────────────────────────────────
+    # IMPORTANT — this is the ONE path that needs a PUBLIC HTTPS tunnel.
+    #
+    # Foundry calls your MCP server SERVER-SIDE from Azure, so it CANNOT reach
+    # http://127.0.0.1 / http://localhost. BAKERY_MCP_SERVER_URL must be a
+    # public HTTPS URL that ends in /mcp. Expose your local server first, e.g.:
+    #     devtunnel host -p 8000            # then use the https://...devtunnels.ms/mcp URL
+    #     ngrok http 8000                   # then use the https://....ngrok.app/mcp URL
+    #     export BAKERY_MCP_SERVER_URL="https://<public-host>/mcp"
+    #
+    # The offline tools, the unit tests, the MCP Inspector, and the live HTTP
+    # protocol surface all work WITHOUT a tunnel. Only this hosted-MCP call to
+    # the Azure agent requires the public URL above.
+    # ──────────────────────────────────────────────────────────────────────
     from dotenv import load_dotenv
     from azure.identity import DefaultAzureCredential
     from azure.ai.projects import AIProjectClient

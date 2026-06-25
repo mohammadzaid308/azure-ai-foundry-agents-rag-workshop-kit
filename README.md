@@ -28,7 +28,7 @@ and creating an agent is a workshop lab (Lab 2), not a prerequisite.
 | Lab 4 | `10-multi-agent-sequential`, `11-multi-agent-concurrent` | Multi-agent orchestration (Frankie's Bakery support pipeline) |
 | Lab 5 | `12-evaluations`, `13-security-observability` | Quality gates (offline + Foundry Evaluations), RBAC checks + tracing |
 | Lab 6 (Python) | `14-mcp-server`, `15-evaluations-tests`, `16-guardrails`, `17-telemetry` | Build an MCP server, evals-as-CI-tests, guardrails, OpenTelemetry tracing (all run offline) |
-| Lab 7 | `14-capstone` (.NET) / `18-capstone` (Python) | Combine everything |
+| Lab 7 | `15-capstone` (.NET) / `18-capstone` (Python) | Combine everything |
 
 > The agent labs use a shared **Frankie's Bakery** / **GiftBot** scenario: a product
 > catalog (`05-agent-function`), a family gift corpus (`06-filesystem-rag`), a bakery
