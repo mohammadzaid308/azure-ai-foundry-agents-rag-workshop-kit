@@ -35,21 +35,43 @@ ResponseResult response = await responseClient.CreateResponseAsync(
 
 Console.WriteLine(response.GetOutputText());
 
-static string RetrieveContext(string dataDir, string question)
+// IDF-weighted keyword retrieval.
+// Plain token-overlap lets generic docs (the catalog, gift history, the system
+// prompt) outrank the one profile the question is actually about, because common
+// words like "gift"/"likes"/"dislikes" appear everywhere. Weighting each matched
+// term by its inverse document frequency makes rare, discriminating terms (like a
+// person's name) dominate, so the right profile is retrieved.
+static string RetrieveContext(string dataDir, string question, int topK = 5)
 {
     var questionTokens = Tokenize(question);
-    var scored = new List<(int Score, string Name, string Content)>();
+    var corpus = new List<(string Name, string Content, HashSet<string> Tokens)>();
 
     foreach (string filePath in Directory.GetFiles(dataDir, "*.md").Concat(Directory.GetFiles(dataDir, "*.json")))
     {
         string content = File.ReadAllText(filePath);
-        int score = Tokenize(content).Intersect(questionTokens).Count();
         string snippet = content.Length > 2000 ? content[..2000] : content;
-        scored.Add((score, Path.GetFileName(filePath), snippet));
+        corpus.Add((Path.GetFileName(filePath), snippet, Tokenize(content)));
     }
 
-    var top = scored.OrderByDescending(x => x.Score).Take(3);
-    return string.Join("\n\n", top.Select(x => $"[{x.Name}] (score={x.Score})\n{x.Content}"));
+    int totalDocs = corpus.Count;
+    var docFreq = new Dictionary<string, int>();
+    foreach (var doc in corpus)
+    {
+        foreach (string token in doc.Tokens)
+        {
+            docFreq[token] = docFreq.GetValueOrDefault(token) + 1;
+        }
+    }
+
+    var scored = corpus.Select(doc =>
+    {
+        double score = questionTokens.Intersect(doc.Tokens)
+            .Sum(t => Math.Log((totalDocs + 1.0) / (docFreq[t] + 1.0)));
+        return (Score: score, doc.Name, doc.Content);
+    });
+
+    var top = scored.OrderByDescending(x => x.Score).Take(topK);
+    return string.Join("\n\n", top.Select(x => $"[{x.Name}] (score={x.Score:F2})\n{x.Content}"));
 }
 
 static HashSet<string> Tokenize(string text)
@@ -71,9 +93,10 @@ static HashSet<string> Tokenize(string text)
 //   on agents - this lab keeps retrieval offline on purpose.
 //
 // ===== CHALLENGE  - Tune the retriever =====
-//   The retriever currently returns the top 3 files (.Take(3)).
-//   1. Change Take(3) to Take(1) and re-run the same query. Does the answer
-//      get worse (missing dislikes / history)? Why?
+//   The retriever returns the top 5 files (topK: 5) ranked by IDF-weighted
+//   token overlap.
+//   1. Change topK to 1 and re-run the same query. Does the answer get worse
+//      (missing dislikes / history)? Why?
 //   2. Add a SECOND question that is NOT in the gift corpus
 //      (e.g. "How do I bake sourdough?") and observe whether the grounded
 //      prompt makes the model say it does not know (it should, given the
